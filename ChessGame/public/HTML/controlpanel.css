@@ -1,0 +1,65 @@
+/*Controlpanel*/
+
+.controlpanel-container {
+  margin: 156px 28px 60px;
+  /* box-shadow: 0 0 0 1px; */
+  display: flex;
+  flex-flow: column;
+  flex: 0 1 auto;
+  max-width: 350px;
+  background: var(--color-secondary-1);
+  box-shadow: 0 1px 4px 0 var(--color-secondary-5);
+}
+
+.controlpanel-header{
+  padding: 18px;
+  font-size: 22px;
+  color: white;
+  background: var(--color-secondary-2);
+}
+
+.controlpanel-content{
+  overflow-y: scroll;
+  padding: 4px;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  color: white;
+  /* box-shadow: 0 0 0 1px; */
+  -ms-overflow-style: none;  /*hide scrollbar in IE and Edge */
+  scrollbar-width: none;     /*hide scrollbar in  Firefox */
+}
+
+.controlpanel-content::-webkit-scrollbar {
+  display: none; /*hide scrollbar in Chrome, Safari and Opera */
+}
+
+.controlpanel-content-move{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30px 60px 1fr;
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.move-number, .move-white, .move-black{
+  padding: 10px;
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.controlpanel-caputred-pieces-container{
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.controlpanel-caputred-pieces.player1{
+  background: var(--color-secondary-2);
+  color: white;
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.controlpanel-caputred-pieces.player2{
+  background: white;
+  color: var(--color-secondary-4);
+  /* box-shadow: 0 0 0 1px; */
+}

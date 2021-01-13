@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content='width=device-width' name='viewport'/>
+
+  <meta name="viewport" content="width=device-width"/>
+
+  <title>Chess</title>
+  <link rel="stylesheet" href="colors.css" type='text/css'/>
+  <link rel="stylesheet" href="game.css" type='text/css'/>
+  <link rel="stylesheet" href="board.css" type='text/css'/>
+  <link rel="stylesheet" href="controlpanel.css" type='text/css'/>
+
+</head>
+
+<body>
+  <header>
+    <h1>Chess</h1>
+  </header>
+  <main>
+    <div class="chessboard-container">
+      <div class="chessboard-header">
+        <div class="chessboard-name player1">
+          Player1 (you)
+        </div>
+        <div class="chessboard-clock-container">
+          <div class="chessboard-clock player1">
+            <p>00:20</p>
+          </div>
+          <div class="chessboard-clock player2">
+            <p>00:26</p>
+          </div>
+        </div>
+        <div class="chessboard-name player2">
+          Player2
+        </div>
+      </div>
+      <div class="chessboard-board">
+        <div class="chessboard-sqare a1"></div>
+        <div class="chessboard-sqare b1"></div>
+        <div class="chessboard-sqare c1"></div>
+        <div class="chessboard-sqare d1"></div>
+        <div class="chessboard-sqare e1"></div>
+        <div class="chessboard-sqare f1"></div>
+        <div class="chessboard-sqare g1"></div>
+        <div class="chessboard-sqare h1"></div>
+        <div class="chessboard-sqare a2"></div>
+        <div class="chessboard-sqare b2"></div>
+        <div class="chessboard-sqare c2"></div>
+        <div class="chessboard-sqare d2"></div>
+        <div class="chessboard-sqare e2"></div>
+        <div class="chessboard-sqare f2"></div>
+        <div class="chessboard-sqare g2"></div>
+        <div class="chessboard-sqare h2"></div>
+        <div class="chessboard-sqare a3"></div>
+        <div class="chessboard-sqare b3"></div>
+        <div class="chessboard-sqare c3"></div>
+        <div class="chessboard-sqare d3"></div>
+        <div class="chessboard-sqare e3"></div>
+        <div class="chessboard-sqare f3"></div>
+        <div class="chessboard-sqare g3"></div>
+        <div class="chessboard-sqare h3"></div>
+        <div class="chessboard-sqare a4"></div>
+        <div class="chessboard-sqare b4"></div>
+        <div class="chessboard-sqare c4"></div>
+        <div class="chessboard-sqare d4"></div>
+        <div class="chessboard-sqare e4"></div>
+        <div class="chessboard-sqare f4"></div>
+        <div class="chessboard-sqare g4"></div>
+        <div class="chessboard-sqare h4"></div>
+        <div class="chessboard-sqare a5"></div>
+        <div class="chessboard-sqare b5"></div>
+        <div class="chessboard-sqare c5"></div>
+        <div class="chessboard-sqare d5"></div>
+        <div class="chessboard-sqare e5"></div>
+        <div class="chessboard-sqare f5"></div>
+        <div class="chessboard-sqare g5"></div>
+        <div class="chessboard-sqare h5"></div>
+        <div class="chessboard-sqare a6"></div>
+        <div class="chessboard-sqare b6"></div>
+        <div class="chessboard-sqare c6"></div>
+        <div class="chessboard-sqare d6"></div>
+        <div class="chessboard-sqare e6"></div>
+        <div class="chessboard-sqare f6"></div>
+        <div class="chessboard-sqare g6"></div>
+        <div class="chessboard-sqare h6"></div>
+        <div class="chessboard-sqare a7"></div>
+        <div class="chessboard-sqare b7"></div>
+        <div class="chessboard-sqare c7"></div>
+        <div class="chessboard-sqare d7"></div>
+        <div class="chessboard-sqare e7"></div>
+        <div class="chessboard-sqare f7"></div>
+        <div class="chessboard-sqare g7"></div>
+        <div class="chessboard-sqare h7"></div>
+        <div class="chessboard-sqare a8"></div>
+        <div class="chessboard-sqare b8"></div>
+        <div class="chessboard-sqare c8"></div>
+        <div class="chessboard-sqare d8"></div>
+        <div class="chessboard-sqare e8"></div>
+        <div class="chessboard-sqare f8"></div>
+        <div class="chessboard-sqare g8"></div>
+        <div class="chessboard-sqare h8"></div>
+      </div>
+    </div>
+    <div class="controlpanel-container">
+      <div class="controlpanel-header">
+        Last moves
+      </div>
+      <div class="controlpanel-content">
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            1.
+          </div>
+          <div class="move-white">
+            d4
+          </div>
+          <div class="move-black">
+            d6
+          </div>
+        </div>
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            2.
+          </div>
+          <div class="move-white">
+            e4
+          </div>
+          <div class="move-black">
+            c6
+          </div>
+        </div>
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            3.
+          </div>
+          <div class="move-white">
+            k f3
+          </div>
+          <div class="move-black">
+            e5
+          </div>
+        </div>
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            4.
+          </div>
+          <div class="move-white">
+            k c3
+          </div>
+          <div class="move-black">
+            d5
+          </div>
+        </div>
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            5.
+          </div>
+          <div class="move-white">
+            dxe5
+          </div>
+          <div class="move-black">
+            g6
+          </div>
+        </div>
+        <div class="controlpanel-content-move">
+          <div class="move-number">
+            6.
+          </div>
+          <div class="move-white">
+            exd5
+          </div>
+          <div class="move-black">
+            q d7
+          </div>
+        </div>
+      </div>
+      <div class="controlpanel-caputred-pieces-container">
+        <div class="controlpanel-caputred-pieces player1">
+        </div>
+        <div class="controlpanel-caputred-pieces player2">
+        </div>
+      </div>
+    </div>
+    <div class="sidepanel">
+
+    </div>
+  </main>
+</body>

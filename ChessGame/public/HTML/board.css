@@ -1,0 +1,87 @@
+/* chess board */
+
+/*header above*/
+.chessboard-header{
+  display: grid;
+  grid-template-columns: 1fr 185px 1fr;
+  position: relative;
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.chessboard-name{
+  margin: 25px 15px;
+  text-align: center;
+  padding: 15px;
+  /* box-shadow: 0 0 0 1px; */
+  box-shadow: 0 1px 4px 0 var(--color-secondary-5);
+}
+
+.chessboard-name.player1{
+  color: white;
+  background: var(--color-secondary-2);
+}
+
+.chessboard-name.player2{
+  color: var(--color-secondary-2);
+  background: white;
+}
+
+.chessboard-clock-container{
+  margin: 25px 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* box-shadow: 0 0 0 1px; */
+  box-shadow: 0 1px 4px 0 var(--color-secondary-5);
+}
+
+.chessboard-clock{
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.chessboard-clock.player1{
+  color: white;
+  background: var(--color-secondary-2);
+}
+
+.chessboard-clock.player2{
+  color: var(--color-secondary-2);
+  background: white;
+}
+
+.chessboard-clock p {
+  text-align: center;
+}
+
+/* the board itselve*/
+.chessboard-container{
+  display: grid;
+  grid-template-rows: 100px 1fr;
+
+  /* box-shadow: 0 0 0 1px; */
+}
+
+.chessboard-board {
+  display: grid;
+  grid-template-columns: repeat(8, min(9vw, 9vh));
+  grid-template-rows: repeat(8, min(9vw, 9vh));
+  margin: auto;
+  width: fit-content;
+  box-shadow: 0 0 0 1px white,
+              0 1px 4px 0 var(--color-secondary-5);
+}
+
+.chessboard-sqare{
+  background: var(--color-primary-1);
+}
+
+.chessboard-sqare:nth-child(-2n+8),
+.chessboard-sqare:nth-child(8) ~ div:nth-child(-2n+15),
+.chessboard-sqare:nth-child(16) ~ div:nth-child(-2n+24),
+.chessboard-sqare:nth-child(24) ~ div:nth-child(-2n+31),
+.chessboard-sqare:nth-child(32) ~ div:nth-child(-2n+40),
+.chessboard-sqare:nth-child(40) ~ div:nth-child(-2n+47),
+.chessboard-sqare:nth-child(48) ~ div:nth-child(-2n+56),
+.chessboard-sqare:nth-child(56) ~ div:nth-child(-2n+63)
+{
+  background: var(--color-primary-3);
+}
