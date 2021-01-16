@@ -66,7 +66,7 @@ class Board {
     setupPieces(board){
         for(let x = 0; x < 8; x++){
             for(let y = 0; y < 8; y++){
-                console.log(board[y][x])
+                // console.log(board[y][x])
                 if(board[y][x]){
                     let {type, color} = board[y][x]
                     let piece = new Piece(type, color, this.squares[y][x])
@@ -125,6 +125,8 @@ class Board {
     id2squareData(id){
         //Remove the + sign if the kign is in check
         if(id[id.length - 1] == "+")
+            id = id.substring(0, id.length - 1)
+        if(id[id.length - 1] == "#")
             id = id.substring(0, id.length - 1)
 
         return{

@@ -22,6 +22,7 @@
         this.color = color
         this.onSquare = startSquare
         this.DOMelement = this.createPiece()
+        this.initalMouseEvent = null;
      }
 
      /**
@@ -54,7 +55,26 @@
          this.DOMelement.remove()
      }
 
-     animationFrame(){}
+
+     initiateAnimation(){
+        document.onmousemove = this.move.bind(this)
+     }
+
+     stopAnimation(){
+        //remove all mouse move listeners
+        document.onmousemove = null
+        this.DOMelement.style.transform = "translate(0, 0)"
+        this.initalMouseEvent = null
+     }
+
+     move(event){
+        // console.log(this)
+        // console.log(event)
+        if(this.initalMouseEvent == null)
+            this.initalMouseEvent = event
+        
+        this.DOMelement.style.transform = `translate(${event.x - this.initalMouseEvent.x}px, ${event.y - this.initalMouseEvent.y}px)`
+     }
  }
 
  console.log("piece.js has loaded")

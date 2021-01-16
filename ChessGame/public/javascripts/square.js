@@ -1,4 +1,3 @@
-
 // @ts-check
 
 class Square{
@@ -10,13 +9,13 @@ class Square{
         this.piece = null
 
         //
-        this.DOMelement.addEventListener("mousedown", this.squarePressed.bind(this))
-        this.DOMelement.addEventListener("mouseup", this.squareReleased.bind(this))
+        this.DOMelement.addEventListener("mousedown", () => {gameManager.pressedSquare(this)})
+        this.DOMelement.addEventListener("mouseup", () => {gameManager.releasedSquare(this)})
     }
 
     removePiece(){
         if(this.piece === null){
-            console.error("this square doesn't have a piece")
+            console.error(`this square (${this.id}) doesn't have a piece`)
             return
         }
 
@@ -28,15 +27,5 @@ class Square{
 
     toggleHighlight(force){
         this.DOMelement.classList.toggle('highlight', force)
-    }
-
-    squarePressed(){
-        console.log(this)
-        gameManager.pressedSquare(this)
-    }
-
-    squareReleased(){
-        console.log(this)
-        gameManager.releasedSquare(this)
     }
 }
