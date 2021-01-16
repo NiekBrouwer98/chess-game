@@ -34,3 +34,13 @@ main {
     /* box-shadow: 0 0 0 1px; */
     background: var(--color-secondary-2);
 }
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
