@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <title>Chess Master: Your favorite chess game</title>
 
-        <link rel="stylesheet" href="colors.css" type='text/css'/>
-        <link rel="stylesheet" href="game.css" type='text/css'/>
-        <link rel="stylesheet" href="statistics.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/colors.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/game.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/statistics.css" type='text/css'/>
 
     </head>
 
@@ -15,7 +15,9 @@
             <div class="play-box">
                 <h1>Chess Master</h1>
                 <button type="button">Rules?</button>
-                <button type="button">Play!</button>
+                <form action="/play" method="get">
+                    <button type="submit">Play!</button>
+                </form>
             </div>
             
             <div class="statistics-container">

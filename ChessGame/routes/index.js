@@ -1,9 +1,13 @@
 var express = require('express');
-var router = express.Router();
+var app = express();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = function(app){
+  app.get("/", function(req, res) {
+    res.sendFile("splashScreen.html", { root: "./public" });
+  });
 
-module.exports = router;
+  /* Pressing the 'PLAY' button, returns this page */
+  app.get("/play", function(req, res) {
+    res.sendFile("game.html", { root: "./public" });
+  });
+}
