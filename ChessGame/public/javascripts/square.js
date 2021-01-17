@@ -1,4 +1,5 @@
 // @ts-check
+"use strict";
 
 class Square{
     constructor(object, x, y, id){

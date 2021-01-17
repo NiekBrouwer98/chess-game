@@ -1,10 +1,12 @@
-// @ts-check
+// @ts-check"
+"use strict";
 class GameManager {
 
     constructor() {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
         this.board = new Board(document.getElementById("board"), true)
         this.board.setupPieces(this.chess.board())
+        this.audio = new AudioManager()
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
     }
@@ -48,23 +50,37 @@ class GameManager {
         });
 
         if (moveMade != null) {
+            let capture = false
+
             console.log(moveMade)
             console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
-            if (!this.chess.move(moveMade)) {
+            let move = this.chess.move(moveMade)
+            // console.log(move)
+            if (!move) {
                 console.error(`Making move ${moveMade} did not succeed`)
                 return
             }
-            console.log(this.chess.ascii())
-            this.currentPiece.moveTo(square)
+
+            if(square.piece)
+                capture = true
 
             //enpasant
-            if(moveMade.substring(1,2) == "x"){
+            if(moveMade.substring(1,2) == "x" && square.piece == null){
                 if(square.y == 2)
                     this.board.squares[4][square.x].removePiece()
                 if(square.y == 5)
                     this.board.squares[3][square.x].removePiece()
+                
+                capture = true
             }
+
+            console.log(this.chess.ascii())
+            this.currentPiece.moveTo(square)
+
+            if(capture)
+                this.audio.Capture()
+            else
+                this.audio.Move()
         }
     }
-
 }
