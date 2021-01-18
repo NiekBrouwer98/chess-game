@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width"/>
 
   <title>Chess</title>
-  <link rel="stylesheet" href="stylesheets/colors.css" type='text/css'/>
-  <link rel="stylesheet" href="stylesheets/game.css" type='text/css'/>
-  <link rel="stylesheet" href="stylesheets/board.css" type='text/css'/>
-  <link rel="stylesheet" href="stylesheets/controlpanel.css" type='text/css'/>
+  <link rel="stylesheet" href="stylesheets/shared/colors.css" type='text/css'/>
+  <link rel="stylesheet" href="stylesheets/game/game.css" type='text/css'/>
+  <link rel="stylesheet" href="stylesheets/shared/board.css" type='text/css'/>
+  <link rel="stylesheet" href="stylesheets/game/controlpanel.css" type='text/css'/>
 
 	<link rel="shortcut icon" href="/fav/favicon.ico">
 	<link rel="icon" sizes="16x16 32x32 64x64" href="/fav/favicon.ico">
@@ -37,7 +37,7 @@
   <header>
     <h1>Chess</h1>
   </header>
-  <main>
+  <main id="main">
     <div class="chessboard-container">
       <div class="chessboard-header">
         <div class="chessboard-name player1">
@@ -156,6 +156,7 @@
 
 
   <script src="javascripts/external_module/chess.js"></script>
+  <script src="javascripts/clock.js"></script>
   <script src="javascripts/audio.js"></script>
   <script src="javascripts/piece.js"></script>
   <script src="javascripts/square.js"></script>

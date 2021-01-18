@@ -16,14 +16,30 @@
   box-shadow: 0 1px 4px 0 var(--color-secondary-5);
 }
 
-.chessboard-name.player1{
+
+.player1{
   color: white;
-  background: var(--color-secondary-2);
+  background: var(--color-secondary-1);
 }
 
-.chessboard-name.player2{
-  color: var(--color-secondary-2);
+.player2{
+  color: var(--color-secondary-1);
   background: white;
+}
+
+.is_white .player1{
+  color: var(--color-secondary-1);
+  background: white;
+}
+
+.is_white .player2{
+  color: white;
+  background: var(--color-secondary-1);
+}
+
+.chessboard-name.aan_zet {
+  box-shadow: 0 0px 0px 2px var(--color-secondary-5),
+      0 1px 4px 2px var(--color-secondary-5);
 }
 
 .chessboard-clock-container{
@@ -38,15 +54,6 @@
   /* box-shadow: 0 0 0 1px; */
 }
 
-.chessboard-clock.player1{
-  color: white;
-  background: var(--color-secondary-2);
-}
-
-.chessboard-clock.player2{
-  color: var(--color-secondary-2);
-  background: white;
-}
 
 .chessboard-clock p {
   text-align: center;
@@ -159,8 +166,8 @@
 
 .indicator {
   background: #0005;
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
   border-radius: 50%;
   margin: 0;
   position: absolute;

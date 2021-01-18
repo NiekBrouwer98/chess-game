@@ -2,15 +2,16 @@
 "use strict";
 class GameManager {
 
-    constructor() {
+    constructor(is_white) {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
         this.board = new Board(document.getElementById("board"), true)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
+        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
+        document.getElementById("main").classList.toggle("is_white", is_white)
     }
-
 
     pressedSquare(square) {
         this.legalMovesCurrentPiece = this.chess.moves({ square: square.id })
@@ -59,6 +60,13 @@ class GameManager {
             if (!move) {
                 console.error(`Making move ${moveMade} did not succeed`)
                 return
+            }
+
+            //Flip the timer
+            if(gameManager.chess.turn() == 'w'){ // did white just move
+                this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
+            }else{
+                this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
             }
 
             if(square.piece)

@@ -11,4 +11,4 @@
 // }
 // console.log(chess.pgn())
 
-var gameManager = new GameManager()
+var gameManager = new GameManager(true)
