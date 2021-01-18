@@ -1,7 +1,7 @@
 /* game with two players, based on their WebSocket */
 var game = function(gameID) {
-    this.playerWhite = null;
-    this.playerBlack = null;
+    this.playerWHITE = null;
+    this.playerBLACK = null;
     this.id = gameID;
     this.gameState = "0 JOINT"
 };
@@ -130,11 +130,11 @@ game.prototype.addPlayer = function(p) {
       this.setStatus("2 JOINT");
     }
   
-    if (this.playerWhite == null) {
-      this.playerWhite = p;
+    if (this.playerWHITE == null) {
+      this.playerWHITE = p;
       return "WHITE";
     } else {
-      this.playerBlack = p;
+      this.playerBLACK = p;
       return "BLACK";
     }
   };

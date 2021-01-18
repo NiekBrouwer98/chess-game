@@ -60,39 +60,57 @@ wss.on("connection", function connection(ws) {
      /* game interactions
      * receiving from client
      * determining game and opposing player
-     * send to other clietn
+     * send to other client
     */
-   //con.on("message", function incoming(message) {});
+   con.on("message", function incoming(message) {
+    let oMsg = JSON.parse(message);
 
+    let gameObj = websockets[con.id];
+    let otherPlayer = gameObj.playerWHITE == con ? playerWHITE : playerBLACK;
+      
+      if (oMsg.type == messages.T_MAKE_A_MOVE) {
+        //Change boardstatus of own player
+
+        if (gameObj.hasTwoConnectedPlayers()) {
+          gameObj.otherPlayer.send(message);
+        }
+
+        if (oMsg.type == messages.T_GAME_WON_BY) {
+          gameObj.setStatus(oMsg.data);
+          //game was won by somebody, update statistics
+          gameStatus.gamesCompleted++;
+        }
+      }
+    });
 
      /*
      * abort the game
      */
     con.on("close", function(code){
-        console.log(con.id + " disconnected...");
+      console.log(con.id + " disconnected...");
 
-        if (code == "1001") {
-            let gameObj = websockets[con.id];
+      if (code == "1001") {
+        let gameObj = websockets[con.id];
 
-            if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")){
-                gameObj.setStatus("ABORTED");
-                gameStatus.gamesAborted++;
+        if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")){
+          gameObj.setStatus("ABORTED");
+          gameStatus.gamesAborted++;
 
-                try {
-                    gameObj.playerWHITE.close();
-                    gameObj.playerWHITE = null;
-                  } catch (e) {
-                    console.log("White player closing: " + e);
-                  }
-          
-                  try {
-                    gameObj.playerBLACK.close();
-                    gameObj.playerBLACK = null;
-                  } catch (e) {
-                    console.log("Black player closing: " + e);
-                  }
-                }
-              }
+          try {
+            gameObj.playerWHITE.close();
+            gameObj.playerWHITE = null;
+          } catch (e) {
+            console.log("White player closing: " + e);
+          }
+  
+          try {
+            gameObj.playerBLACK.close();
+            gameObj.playerBLACK = null;
+          } catch (e) {
+            console.log("Black player closing: " + e);
+          }
+        }
+      }
     });
 });
 

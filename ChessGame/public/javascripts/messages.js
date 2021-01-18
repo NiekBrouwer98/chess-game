@@ -23,13 +23,17 @@
    };
    exports.S_PLAYER_BLACK = JSON.stringify(exports.O_PLAYER_BLACK);
 
-    /*
-    *GAME-FIRST-MOVE: client-a to server, server to client-b
-    */
 
     /*
     *GAME-MOVE: client to server, server to other client
     */
+   exports.T_MAKE_A_MOVE = "MAKE-A-MOVE";
+   exports.O_MAKE_A_MOVE = {
+     type: exports.T_MAKE_A_MOVE,
+     square_from: null,
+     square_to: null,
+     time: null
+   };
 
    /*
     *GAME-WINNER: server to client-a and client-b
