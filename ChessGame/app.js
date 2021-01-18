@@ -15,7 +15,12 @@ var app = express();
 //view engines to include statistics
 app.use(express.static(__dirname + "/public"));
 
-require("./routes/index.js")(app);
+// require("./routes/index.js")(app);
+app.get("/play", indexRouter);
+
+app.get("/", (req, res) => {
+  res.sendFile("splashScreen.html", { root: "./public" });
+});
 
 var server = http.createServer(app);
 const wss = new websocket.Server({ server });
