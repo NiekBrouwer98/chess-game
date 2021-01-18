@@ -22,6 +22,8 @@ const wss = new websocket.Server({ server });
 
 var websockets = {};
 
+//regularly clean up websockets
+
 var currentGame = new Game(gameStatus.gamesInitialized++);
 var connectionID = 0;
 
