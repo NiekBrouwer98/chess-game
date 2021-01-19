@@ -19,6 +19,7 @@ class Board {
         this.DOMelement = DOMelement
 
         this.is_white = is_white
+        console.log(`board set up as ${is_white? 'white':'black'}`)
         this.gameManager = gameManager
 
         this.squares = null

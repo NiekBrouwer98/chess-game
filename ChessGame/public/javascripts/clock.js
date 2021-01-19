@@ -75,6 +75,14 @@ class Clock{
         this.displayTimer(player, timeLeft)
     }
 
+    getTimer(player){
+        if(this.coutingState == player){
+            return this.endTime - new Date().getTime()
+        }else{
+            return (player == '1') ? this.initalTimeLeftPlayer1 : this.initalTimeLeftPlayer2;
+        }
+    }
+
     displayTimer(player, time){
         if(player == 1){
             this.DOMclockPlayer1.innerText = this.formatTime(time)

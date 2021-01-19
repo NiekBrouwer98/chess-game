@@ -13,9 +13,11 @@
     
         //set player type
         if (incomingMsg.type == Messages.T_PLAYER_TYPE) {
+          console.log(`Setting up game manager as color ${incomingMsg.data}`)
 
           // Now that we know the player type we can setup the board
           gm = new GameManager(incomingMsg.data == "WHITE", socket);
+
         }
 
         // Check if we already have a game manager to receive other messages

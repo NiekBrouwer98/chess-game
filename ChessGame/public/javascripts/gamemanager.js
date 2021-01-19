@@ -2,9 +2,10 @@
 "use strict";
 class GameManager {
 
-    constructor(is_white) {
+    constructor(is_white, socket) {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
-        this.board = new Board(document.getElementById("board"), true, this)
+        this.socket = socket
+        this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
         this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5)
@@ -50,53 +51,24 @@ class GameManager {
             }
         });
 
+        if (moveMade == null){
+            console.log("Invalid move :(")
+            return
+        }
+
         let square_from = this.currentPiece.onSquare.id
         let square_to = square.id
         let move_string = moveMade
 
         this.movePiece(square_from, square_to)
 
-        // if (moveMade != null) {
-        //     let capture = false
+        let outgoingMsg = Messages.O_MAKE_A_MOVE;
+        outgoingMsg.square_from = square_from;
+        outgoingMsg.square_to = square_to;
+        outgoingMsg.move_string = move_string;
+        outgoingMsg.time = this.clock.getTimer('1');
 
-        //     console.log(moveMade)
-        //     console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
-        //     let move = this.chess.move(moveMade)
-
-        //     // console.log(move)
-        //     if (!move) {
-        //         console.error(`Making move ${moveMade} did not succeed`)
-        //         return
-        //     }
-
-        //     //Flip the timer
-        //     if(this.chess.turn() == 'w'){ // did white just move
-        //         this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
-        //     }else{
-        //         this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
-        //     }
-
-        //     if(square.piece)
-        //         capture = true
-
-        //     //enpasant
-        //     if(moveMade.substring(1,2) == "x" && square.piece == null){
-        //         if(square.y == 2)
-        //             this.board.squares[4][square.x].removePiece()
-        //         if(square.y == 5)
-        //             this.board.squares[3][square.x].removePiece()
-                
-        //         capture = true
-        //     }
-
-        //     console.log(this.chess.ascii())
-        //     this.currentPiece.moveTo(square)
-
-        //     if(capture)
-        //         this.audio.Capture()
-        //     else
-        //         this.audio.Move()
-        // }
+        this.socket.send(JSON.stringify(outgoingMsg));
     }
 
     movePiece(from, to) {
