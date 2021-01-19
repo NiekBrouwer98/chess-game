@@ -92,19 +92,24 @@ wss.on("connection", function connection(ws) {
      * send to other client
     */
    con.on("message", function incoming(message) {
-    let oMsg = JSON.parse(message);
+      let oMsg = JSON.parse(message);
 
-    let gameObj = websockets[con.id];
+      let gameObj = websockets[con.id];
 
-    console.log(oMsg)
+      console.log(oMsg)
 
-    let otherPlayer = (gameObj.playerWHITE == con) ? playerWHITE : playerBLACK;
-      
-      if (oMsg.type == messages.T_MAKE_A_MOVE) {
-        //Change boardstatus of own player
+      let isWhite = (gameObj.playerWHITE == con) ? true : false;
+        
+        if (oMsg.type == messages.T_MAKE_A_MOVE) {
+          //Change boardstatus of own player
 
-        if (gameObj.hasTwoConnectedPlayers()) {
-          gameObj.otherPlayer.send(message);
+          if (isWhite){
+
+          if (gameObj.hasTwoConnectedPlayers()) {
+            gameObj.playerBLACK.send(message);
+          }
+        }else{
+          gameObj.playerWHITE.send(message);
         }
 
         if (oMsg.type == messages.T_GAME_WON_BY) {
