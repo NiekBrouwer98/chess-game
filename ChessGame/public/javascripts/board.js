@@ -141,14 +141,23 @@ class Board {
      * Helper function to get the square position from an id
      * @param {string} id - The id of the square eg 'a1' or 'd4' or and move like 'Nh3'
      */
-    id2squareData(id){
+    id2squareData(id, is_white){
         console.log(id)
 
-        //Remove the + sign if the kign is in check
+        //Remove the + sign if the king is in check
         if(id[id.length - 1] == "+")
             id = id.substring(0, id.length - 1)
         if(id[id.length - 1] == "#")
             id = id.substring(0, id.length - 1)
+
+        //castleing king side
+        if(id == 'O-O'){
+            return is_white ? {x: 6, y: 7} : {x: 6, y: 0}
+        }
+        //castleing queen side
+        if(id == 'O-O-O'){
+            return is_white ? {x: 2, y: 7} : {x: 2, y: 0}
+        }
 
         return{
             x: id.charCodeAt(id.length - 2) - 97,

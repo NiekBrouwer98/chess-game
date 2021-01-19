@@ -19,7 +19,7 @@ class GameManager {
         // console.log(square.id)
         // console.log(this.legalMovesCurrentPiece)
         this.legalMovesCurrentPiece.forEach(move => {
-            let { x, y } = this.board.id2squareData(move)
+            let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
             if (x == null || y == null || x < 0 || x > 7 || y < 0 || y > 7) {
                 console.error("Can't generate position for move " + move)
             } else {
@@ -41,7 +41,7 @@ class GameManager {
       
         let moveMade = null
         this.legalMovesCurrentPiece.forEach(move => {
-            let { x, y } = this.board.id2squareData(move)
+            let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
             if (x == null || y == null) {
                 console.error("Can't generate position for move " + move)
             } else {
@@ -76,11 +76,11 @@ class GameManager {
 
         console.log(`moving from ${from} to ${to}`)
 
-        let { x: fromX, y: fromY} = this.board.id2squareData(from)
+        let { x: fromX, y: fromY} = this.board.id2squareData(from, this.chess.turn() == 'w')
         console.log(`x ${fromX}, y ${fromY}`)
         let fromSquare = this.board.squares[fromY][fromX]
 
-        let { x: toX, y: toY } = this.board.id2squareData(to)
+        let { x: toX, y: toY } = this.board.id2squareData(to, this.chess.turn() == 'w')
         console.log(`x ${toX}, y ${toY}`)
         let toSquare = this.board.squares[toY][toX]
 
