@@ -18,6 +18,7 @@ app.get("/play", indexRouter);
 
 // implement live statistics
 app.get("/", (req, res) => {
+  console.log("Welcoming player to splash screen")
   res.sendFile("splashScreen.html", { root: "./public" });
 });
 
@@ -70,7 +71,10 @@ wss.on("connection", function connection(ws) {
     let oMsg = JSON.parse(message);
 
     let gameObj = websockets[con.id];
-    let otherPlayer = gameObj.playerWHITE == con ? playerWHITE : playerBLACK;
+
+    console.log(oMsg)
+
+    let otherPlayer = (gameObj.playerWHITE == con) ? playerWHITE : playerBLACK;
       
       if (oMsg.type == messages.T_MAKE_A_MOVE) {
         //Change boardstatus of own player

@@ -56,6 +56,7 @@ class GameManager {
             console.log(moveMade)
             console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
             let move = this.chess.move(moveMade)
+
             // console.log(move)
             if (!move) {
                 console.error(`Making move ${moveMade} did not succeed`)
@@ -90,5 +91,47 @@ class GameManager {
             else
                 this.audio.Move()
         }
+    }
+
+    movePiece(from, to) {
+
+        let capture = false
+
+        console.log(moveMade)
+        console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
+        let move = this.chess.move(moveMade)
+        // console.log(move)
+        if (!move) {
+            console.error(`Making move ${moveMade} did not succeed`)
+            return
+        }
+
+        //Flip the timer
+        if(gameManager.chess.turn() == 'w'){ // did white just move
+            this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
+        }else{
+            this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
+        }
+
+        if(square.piece)
+            capture = true
+
+        //enpasant
+        if(moveMade.substring(1,2) == "x" && square.piece == null){
+            if(square.y == 2)
+                this.board.squares[4][square.x].removePiece()
+            if(square.y == 5)
+                this.board.squares[3][square.x].removePiece()
+            
+            capture = true
+        }
+
+        console.log(this.chess.ascii())
+        this.currentPiece.moveTo(square)
+
+        if(capture)
+            this.audio.Capture()
+        else
+            this.audio.Move()
     }
 }
