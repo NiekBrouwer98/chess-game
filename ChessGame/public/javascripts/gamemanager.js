@@ -4,7 +4,7 @@ class GameManager {
 
     constructor(is_white) {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
-        this.board = new Board(document.getElementById("board"), true)
+        this.board = new Board(document.getElementById("board"), true, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
         this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5)
@@ -50,88 +50,104 @@ class GameManager {
             }
         });
 
-        if (moveMade != null) {
-            let capture = false
+        let square_from = this.currentPiece.onSquare.id
+        let square_to = square.id
+        let move_string = moveMade
 
-            console.log(moveMade)
-            console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
-            let move = this.chess.move(moveMade)
+        this.movePiece(square_from, square_to)
 
-            // console.log(move)
-            if (!move) {
-                console.error(`Making move ${moveMade} did not succeed`)
-                return
-            }
+        // if (moveMade != null) {
+        //     let capture = false
 
-            //Flip the timer
-            if(gameManager.chess.turn() == 'w'){ // did white just move
-                this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
-            }else{
-                this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
-            }
+        //     console.log(moveMade)
+        //     console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
+        //     let move = this.chess.move(moveMade)
 
-            if(square.piece)
-                capture = true
+        //     // console.log(move)
+        //     if (!move) {
+        //         console.error(`Making move ${moveMade} did not succeed`)
+        //         return
+        //     }
 
-            //enpasant
-            if(moveMade.substring(1,2) == "x" && square.piece == null){
-                if(square.y == 2)
-                    this.board.squares[4][square.x].removePiece()
-                if(square.y == 5)
-                    this.board.squares[3][square.x].removePiece()
+        //     //Flip the timer
+        //     if(this.chess.turn() == 'w'){ // did white just move
+        //         this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
+        //     }else{
+        //         this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
+        //     }
+
+        //     if(square.piece)
+        //         capture = true
+
+        //     //enpasant
+        //     if(moveMade.substring(1,2) == "x" && square.piece == null){
+        //         if(square.y == 2)
+        //             this.board.squares[4][square.x].removePiece()
+        //         if(square.y == 5)
+        //             this.board.squares[3][square.x].removePiece()
                 
-                capture = true
-            }
+        //         capture = true
+        //     }
 
-            console.log(this.chess.ascii())
-            this.currentPiece.moveTo(square)
+        //     console.log(this.chess.ascii())
+        //     this.currentPiece.moveTo(square)
 
-            if(capture)
-                this.audio.Capture()
-            else
-                this.audio.Move()
-        }
+        //     if(capture)
+        //         this.audio.Capture()
+        //     else
+        //         this.audio.Move()
+        // }
     }
 
     movePiece(from, to) {
-
         let capture = false
 
-        console.log(moveMade)
-        console.log(`moving ${this.currentPiece.type} from ${this.currentPiece.onSquare.id} to ${square.id}`)
-        let move = this.chess.move(moveMade)
+        console.log(`moving from ${from} to ${to}`)
+
+        let { x: fromX, y: fromY} = this.board.id2squareData(from)
+        console.log(`x ${fromX}, y ${fromY}`)
+        let fromSquare = this.board.squares[fromY][fromX]
+
+        let { x: toX, y: toY } = this.board.id2squareData(to)
+        console.log(`x ${toX}, y ${toY}`)
+        let toSquare = this.board.squares[toY][toX]
+
+
+        
+        let move = this.chess.move({from: from, to: to} )
+
         // console.log(move)
         if (!move) {
             console.error(`Making move ${moveMade} did not succeed`)
             return
         }
 
-        //Flip the timer
-        if(gameManager.chess.turn() == 'w'){ // did white just move
-            this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
-        }else{
-            this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
-        }
+        // //Flip the timer
+        // if(this.gameManager.chess.turn() == 'w'){ // did white just move
+        //     this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
+        // }else{
+        //     this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
+        // }
 
-        if(square.piece)
-            capture = true
+        // if(square.piece)
+        //     capture = true
 
         //enpasant
-        if(moveMade.substring(1,2) == "x" && square.piece == null){
-            if(square.y == 2)
-                this.board.squares[4][square.x].removePiece()
-            if(square.y == 5)
-                this.board.squares[3][square.x].removePiece()
+        // if(moveMade.substring(1,2) == "x" && square.piece == null){
+        //     if(square.y == 2)
+        //         this.board.squares[4][square.x].removePiece()
+        //     if(square.y == 5)
+        //         this.board.squares[3][square.x].removePiece()
             
-            capture = true
-        }
+        //     capture = true
+        // }
 
         console.log(this.chess.ascii())
-        this.currentPiece.moveTo(square)
+        this.board.update_pieces(this.chess.board())
 
-        if(capture)
-            this.audio.Capture()
-        else
-            this.audio.Move()
+        // if(capture)
+        //     this.audio.Capture()
+        // else
+        this.audio.Move()
     }
 }

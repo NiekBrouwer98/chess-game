@@ -2,13 +2,13 @@
 "use strict";
 
 class Square{
-    constructor(object, x, y, id){
+    constructor(object, x, y, id, gameManager){
         this.DOMelement = object
         this.x = x
         this.y = y
         this.id = id
         this.piece = null
-
+        this.gameManager = gameManager
         //
         this.DOMelement.addEventListener("mousedown", () => {gameManager.pressedSquare(this)})
         this.DOMelement.addEventListener("mouseup", () => {gameManager.releasedSquare(this)})
@@ -20,7 +20,7 @@ class Square{
             return
         }
 
-        console.log(`removing ${this.piece.type} from ${this.id}`)
+        // console.log(`removing ${this.piece.type} from ${this.id}`)
 
         this.piece.destroyPiece()
         this.piece = null

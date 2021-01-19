@@ -26,10 +26,9 @@
 
         // We recieved a move to play
         if(incomingMsg.type = Messages.T_MAKE_A_MOVE){
-          
+          console.log(`We recieved a move from ${incomingMsg.square_from} to ${incomingMsg.square_to} with string ${incomingMsg.move_string} 
+          and time remaining for the opponent of ${incomingMsg.time}`)
         }
-
-
     }
     
     socket.onopen = function () {

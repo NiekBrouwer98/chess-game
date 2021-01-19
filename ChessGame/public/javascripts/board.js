@@ -15,10 +15,11 @@ class Board {
      * @param {object} DOMelement The Dom reference to the board
      * @param {boolean} is_white If the player is white or black
      */
-    constructor(DOMelement, is_white) {
+    constructor(DOMelement, is_white, gameManager) {
         this.DOMelement = DOMelement
 
         this.is_white = is_white
+        this.gameManager = gameManager
 
         this.squares = null
         this.setupBoard();
@@ -39,7 +40,7 @@ class Board {
         // console.log(children);
         for(let i = 0; i < 8*8; i++){
             let squareData = this.n2squareData(i)
-            let square = new Square(children[i], squareData.x, squareData.y, squareData.id)
+            let square = new Square(children[i], squareData.x, squareData.y, squareData.id, this.gameManager)
 
             //Add the square object to the 2d array (from the perspective of white)
             this.squares[7 - squareData.y][squareData.x] = square
@@ -77,12 +78,27 @@ class Board {
     }
 
     /**
+     * brings the board to a new boardstate
+     * @param {array} board An 2D array with what piece is in what positon as returned by the Chess library
+     */
+    update_pieces(board){
+
+        //Quick and dirty way
+        this.clear()
+        this.setupPieces(board)
+
+    }
+
+    /**
      * Clears the complete board
      */
     clear(){
-        this.squares.forEach(square => {
-            if(square.piece != null)
-                square.removePiece()
+        console.log("Clearing board")
+        this.squares.forEach(squareRow => {
+            squareRow.forEach(square => {   
+                if(square.piece != null)
+                    square.removePiece()
+            })
         });
     }
 
@@ -90,9 +106,11 @@ class Board {
      * Getter if the board is completely empty
      */
     isClear(){
-        this.squares.forEach(square => {
-            if(square.piece != null)
-                return false
+        this.squares.forEach(squareRow => {
+            squareRow.forEach(square => {
+                if(square.piece != null)
+                    return false
+            })
         });
         return true
     }
@@ -123,6 +141,8 @@ class Board {
      * @param {string} id - The id of the square eg 'a1' or 'd4' or and move like 'Nh3'
      */
     id2squareData(id){
+        console.log(id)
+
         //Remove the + sign if the kign is in check
         if(id[id.length - 1] == "+")
             id = id.substring(0, id.length - 1)

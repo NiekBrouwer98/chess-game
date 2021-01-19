@@ -28,6 +28,7 @@
      type: exports.T_MAKE_A_MOVE,
      square_from: null,
      square_to: null,
+     move_string: null,
      time: null
    };
 
