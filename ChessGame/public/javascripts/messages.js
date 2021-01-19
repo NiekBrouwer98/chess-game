@@ -1,9 +1,5 @@
 (function(exports){
 
-    /*
-    *GAME-START: client to server
-    */
-
    /*
     *PLAYER-WHITE: server to client-a
      */

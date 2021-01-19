@@ -2,40 +2,187 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Chess Master: Your favorite chess game</title>
+        <title>Chess</title>
 
-        <link rel="stylesheet" href="stylesheets/colors.css" type='text/css'/>
-        <link rel="stylesheet" href="stylesheets/game.css" type='text/css'/>
-        <link rel="stylesheet" href="stylesheets/statistics.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/shared/colors.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/splash/splash.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/splash/playBox.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/splash/statistics.css" type='text/css'/>
+        <link rel="stylesheet" href="stylesheets/shared/board.css" type='text/css'/>
+        
+        <link rel="shortcut icon" href="/fav/favicon.ico">
+        <link rel="icon" sizes="16x16 32x32 64x64" href="/fav/favicon.ico">
+        <link rel="icon" type="image/png" sizes="196x196" href="/fav/favicon-192.png">
+        <link rel="icon" type="image/png" sizes="160x160" href="/fav/favicon-160.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/fav/favicon-96.png">
+        <link rel="icon" type="image/png" sizes="64x64" href="/fav/favicon-64.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/fav/favicon-32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/fav/favicon-16.png">
+        <link rel="apple-touch-icon" href="/fav/favicon-57.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/fav/favicon-114.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/fav/favicon-72.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/fav/favicon-144.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/fav/favicon-60.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/fav/favicon-120.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/fav/favicon-76.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/fav/favicon-152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/fav/favicon-180.png">
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="/fav/favicon-144.png">
+        <meta name="msapplication-config" content="/fav/browserconfig.xml">
 
     </head>
 
     <body>
-        <main>
-            <div class="play-box">
-                <h1>Chess Master</h1>
-                <button type="button">Rules?</button>
-                <form action="/play" method="get">
-                    <button type="submit">Play!</button>
-                </form>
-            </div>
-            
-            <div class="statistics-container">
-                <div class="statistics-content">
-                    <dl>
-                        <dt>Games ongoing:</dt>
-                        <dd>5</dd>
-                    </dl>
-                    <dl>
-                        <dt>Players online:</dt>
-                        <dd>20</dd>
-                    </dl>
-                    <dl>
-                        <dt>Matches won:</dt>
-                        <dd>2</dd>
-                    </dl>
+        <header>
+            <h1>Chess</h1>
+        </header>
+        <main id="main">
+            <div>
+                <div class= "board-in-splash">
+                    <div class="chessboard-container">
+                        <div class="chessboard-board unselectable" id="board">
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                            <div class="chessboard-square"><div class="indicator"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="playbox-container">
+                    <div class="playbox">
+                        <div class="title">
+                            <h1>Chess Master</h1>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="myFunction()" class="button"> Rules?</button>
+
+                            <form action="/play" method="get">
+                                <button class="button" type="submit">Play!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="rules-container" class="hide">
+                    <div class="rules-content">
+                        <h2>Rules</h2>
+                        <p>White is always first to move and players take turns alternately 
+                            moving one piece at a time. Movement is required. If a player´s 
+                            turn is to move, he is not in check but has no legal moves, 
+                            this situation is called “Stalemate” and it ends the game in a draw. 
+                            Each type of piece has its own method of movement. 
+                            A piece may be moved to another position or may capture an opponent´s piece,
+                             replacing on its square (en passant being the only exception). 
+                             With the exception of the knight, a piece may not move over or through any
+                              of the other pieces. When a king is threatened with capture (but can protect
+                               himself or escape), it´s called check. If a king is in check, then the player
+                                must make a move that eliminates the threat of capture and cannot leave the
+                                 king in check. Checkmate happens when a king is placed in check and there
+                                  is no legal move to escape. Checkmate ends the game and the side whose 
+                                  king was checkmated looses. 
+                        <a href="https://www.chesscoachonline.com/chess-articles/chess-rules">source</a> </p>
+                    </div>
                 </div>
             </div>
+            <div>
+                <div class="statistics-container">
+                    <div class="statistics-content">
+                        <h1>Statistics</h1>
+                        <div class="statistic-text">
+                            <div class="statisticA-title">Players online:</div>
+                            <div class="statistic-number">1</div>
+                        </div>
+                        <div class="statistic-text">
+                            <div class="statisticB-title">Matches ongoing:</div>
+                            <div class="statistic-number">20</div>
+                        </div>
+                        <div class="statistic-text">
+                            <div class="statisticC-title">Matches played:</div>
+                            <div class="statistic-number">2</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        
         </main>
+        
+        <script>
+
+            function myFunction(){
+                document.getElementsById("rules-container").classname="show"; 
+                alert("test");
+                
+            }
+
+        </script>
+
+        <script src="javascripts/external_module/chess.js"></script>
+        <script src="javascripts/piece.js"></script>
+        <script src="javascripts/square.js"></script>
+        <script src="javascripts/board.js"></script>
+        <script src="javascripts/gamemanager.js"></script>
+        <script src="javascripts/game.js"></script>
+
     </body>
 </html>

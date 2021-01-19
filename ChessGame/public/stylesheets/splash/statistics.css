@@ -1,23 +1,64 @@
 /*Statistics*/
+  .statistics-content{
+    position: absolute;
+    font-size: 18px;
+    color: white;
+    right: 0px;
+    width: 250px;
+    top: 0px;
+    height: 380px;
+    text-align: center;
+    display: grid;
 
-.statistics-container {
-    margin: 156px 28px 60px;
-    /* box-shadow: 0 0 0 1px; */
-    display: flex;
-    flex-flow: column;
-    flex: 0 1 auto;
-    max-width: 350px;
-    background: var(--color-secondary-1);
-    box-shadow: 0 1px 4px 0 var(--color-secondary-5);
+  
   }
 
-  .statistics-content{
-    overflow-y: scroll;
-    padding: 4px;
-    overflow-x: hidden;
-    flex: 1 1 auto;
+  .statistic-text{
+    background-color: var(--color-secondary-2);
+    border-radius: 12px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+
+  }
+
+  .statisticA-title::before{
+    content: "♟ ";
     color: white;
-    /* box-shadow: 0 0 0 1px; */
-    -ms-overflow-style: none;  /*hide scrollbar in IE and Edge */
-    scrollbar-width: none;     /*hide scrollbar in  Firefox */
+  }
+  .statisticB-title::before{
+    content: "♞ ";
+    color: white;
+  }
+
+  .statisticC-title::before{
+    content: "♕ ";
+    color: white;
+  }
+
+  .statisticA-title{
+    text-align: center;
+    font-size: 22px;
+    color: white;
+  }
+
+  .statisticB-title{
+    text-align: center;
+    font-size: 22px;
+    color: white;
+  }
+
+  .statisticC-title{
+    text-align: center;
+    font-size: 22px;
+    color: white;
+  }
+
+  .statistic-number{
+    text-align: center;
+    font-size: 20px;
+    color: white;
   }

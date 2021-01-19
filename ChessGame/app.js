@@ -5,7 +5,6 @@ var websocket = require("ws");
 var indexRouter = require("./routes/index")
 var messages = require("./public/javascripts/messages");
 
-// implement live statistics
 var gameStatus = require("./statTracker");
 var Game = require("./playGame");
 
@@ -15,9 +14,9 @@ var app = express();
 //view engines to include statistics
 app.use(express.static(__dirname + "/public"));
 
-// require("./routes/index.js")(app);
 app.get("/play", indexRouter);
 
+// implement live statistics
 app.get("/", (req, res) => {
   res.sendFile("splashScreen.html", { root: "./public" });
 });
