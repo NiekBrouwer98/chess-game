@@ -66,26 +66,23 @@ main {
   width: 250px;
   background: var(--color-secondary-1);
   box-shadow: 0 1px 4px 0 var(--color-secondary-5);
-
-  
   }
 
 #rules-container{
   position: absolute;
-  top: 50%;
-  left: 5%;
-  height: 400px;
-  margin-top: -200px;
-  width: 250px;
+  top: 0%;
+  left: 0%;
+  height: 100vh;
+  /* margin-top: -200px; */
+  width: 300px;
   background: var(--color-secondary-1);
   box-shadow: 0 1px 4px 0 var(--color-secondary-5);
   opacity: 0.95;
-  animation: fadeIn;
+  animation: fadeInLeft;
   animation-duration: 1s;
   overflow:scroll;
   overflow-x: hidden;
   overflow-y: hidden;
-
 }
 
 .hide{
@@ -96,10 +93,16 @@ main {
 }
 
 .rules-content{
-  text-align: center;
+  text-align: left;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   margin:2%;
+}
+
+.close-button{
+  position: relative;
+  float: right;
+  color: black;
 }
 
 
@@ -111,6 +114,21 @@ main {
   
     100% {
       opacity: 0.95;
+      transform: scale3d(1,1,1);
+
+    }
+  }
+
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      left: -3rem;
+      transform: scale3d(.75,.75,1);
+    }
+  
+    100% {
+      opacity: 0.95;
+      left: 0%;
       transform: scale3d(1,1,1);
 
     }

@@ -57,8 +57,14 @@
     color: white;
   }
 
-  .statistic-number{
-    text-align: center;
-    font-size: 20px;
-    color: white;
+  .statisticA-title::after{
+    font-size: 30px
+  }
+
+  .statisticB-title::after{
+    font-size: 30px
+  }
+
+  .statisticC-title::after{
+    font-size: 30px
   }
