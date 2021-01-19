@@ -11,6 +11,7 @@ class GameManager {
         this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
+        this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
         document.getElementById("main").classList.toggle("is_white", is_white)
     }
 
@@ -60,7 +61,7 @@ class GameManager {
         let square_to = square.id
         let move_string = moveMade
 
-        this.movePiece(square_from, square_to)
+        this.movePiece(square_from, square_to, move_string)
 
         let outgoingMsg = Messages.O_MAKE_A_MOVE;
         outgoingMsg.square_from = square_from;
@@ -71,7 +72,11 @@ class GameManager {
         this.socket.send(JSON.stringify(outgoingMsg));
     }
 
-    movePiece(from, to) {
+    receiveMove(from, to, move_string, time){
+        this.movePiece(from, to, move_string)
+    }
+
+    movePiece(from, to, move_string) {
         let capture = false
 
         console.log(`moving from ${from} to ${to}`)
@@ -116,6 +121,8 @@ class GameManager {
 
         console.log(this.chess.ascii())
         this.board.update_pieces(this.chess.board())
+
+        this.sidepanel.addMove(move_string)
 
         // if(capture)
         //     this.audio.Capture()
