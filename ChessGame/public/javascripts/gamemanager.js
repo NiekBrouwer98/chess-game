@@ -1,9 +1,12 @@
 // @ts-check"
 "use strict";
+let debug = false
+
 class GameManager {
 
     constructor(is_white, socket) {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
+        this.is_white = is_white
         this.socket = socket
         this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
@@ -16,6 +19,10 @@ class GameManager {
     }
 
     pressedSquare(square) {
+        //return if the square does not contian a piece of the same color as this player
+        if(((square.piece == null || (square.piece.color == 'b') == this.is_white)) && !debug)
+            return
+
         this.legalMovesCurrentPiece = this.chess.moves({ square: square.id })
         // console.log(square.id)
         // console.log(this.legalMovesCurrentPiece)
@@ -37,8 +44,10 @@ class GameManager {
         // console.log("releasing")
         // console.log(square.id)
 
-        if(this.currentPiece)
-            this.currentPiece.stopAnimation()
+        if(!this.currentPiece)
+            return
+        
+        this.currentPiece.stopAnimation()
       
         let moveMade = null
         this.legalMovesCurrentPiece.forEach(move => {
@@ -70,6 +79,8 @@ class GameManager {
         outgoingMsg.time = this.clock.getTimer('1');
 
         this.socket.send(JSON.stringify(outgoingMsg));
+
+        this.currentPiece = null
     }
 
     receiveMove(from, to, move_string, time){
