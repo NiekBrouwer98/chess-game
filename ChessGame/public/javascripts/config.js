@@ -1,4 +1,4 @@
-/* Code shared between client and server: game setup.
+/* Code shared between client and server: config.
  *
  * The different properties (MIN_WORD_LENGTH and so on) are game properties that
  * need to be shared between client and server (both the client and server need to

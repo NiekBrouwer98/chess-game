@@ -11,7 +11,7 @@ class GameManager {
         this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
-        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5)
+        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5, this.gameOver)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
@@ -70,21 +70,28 @@ class GameManager {
         let square_to = square.id
         let move_string = moveMade
 
+        // move the piece on this board
         this.movePiece(square_from, square_to, move_string)
 
-        let outgoingMsg = Messages.O_MAKE_A_MOVE;
-        outgoingMsg.square_from = square_from;
-        outgoingMsg.square_to = square_to;
-        outgoingMsg.move_string = move_string;
-        outgoingMsg.time = this.clock.getTimer('1');
+        //start the timer for the opponent
+        this.clock.startTimer(2)
 
-        this.socket.send(JSON.stringify(outgoingMsg));
+        let outgoingMsg = Messages.O_MAKE_A_MOVE
+        outgoingMsg.square_from = square_from
+        outgoingMsg.square_to = square_to
+        outgoingMsg.move_string = move_string
+        outgoingMsg.time = this.clock.getTimer(1)
+
+        this.socket.send(JSON.stringify(outgoingMsg))
 
         this.currentPiece = null
     }
 
     receiveMove(from, to, move_string, time){
         this.movePiece(from, to, move_string)
+
+        this.clock.startTimer(1)
+        this.clock.setTimer(2, time)
     }
 
     movePiece(from, to, move_string) {
@@ -106,38 +113,28 @@ class GameManager {
 
         // console.log(move)
         if (!move) {
-            console.error(`Making move ${moveMade} did not succeed`)
+            console.error(`Making move ${move} did not succeed`)
             return
         }
-
-        // //Flip the timer
-        // if(this.gameManager.chess.turn() == 'w'){ // did white just move
-        //     this.clock.startTimer(this.is_white ? 2 : 1) // other payer (2) is black if not is_white
-        // }else{
-        //     this.clock.startTimer(this.is_white ? 1 : 2) // this payer (1) is white if is_white
-        // }
-
-        // if(square.piece)
-        //     capture = true
-
-        //enpasant
-        // if(moveMade.substring(1,2) == "x" && square.piece == null){
-        //     if(square.y == 2)
-        //         this.board.squares[4][square.x].removePiece()
-        //     if(square.y == 5)
-        //         this.board.squares[3][square.x].removePiece()
-            
-        //     capture = true
-        // }
 
         console.log(this.chess.ascii())
         this.board.update_pieces(this.chess.board())
 
         this.sidepanel.addMove(move_string)
 
-        // if(capture)
-        //     this.audio.Capture()
-        // else
-        this.audio.Move()
+        if(move_string.includes('x'))
+            this.audio.Capture()
+        else
+            this.audio.Move()
+    }
+
+    gameOver(won){
+        console.log(`This game is over, and is ${won?"":"not"} won by this player`)
+
+        let outgoingMsg = Messages.O_GAME_WON_BY
+        outgoingMsg.data = this.is_white == won ? "WHITE" : "BLACK"
+        this.socket.send(JSON.stringify(outgoingMsg))
+
+        //do other stuff
     }
 }

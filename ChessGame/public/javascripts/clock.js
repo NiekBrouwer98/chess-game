@@ -2,10 +2,9 @@
 // @ts-check
 "use strict";
 
-//This file contains all code used to manage the timer
-
+//This contains all code used to manage the chess timer
 class Clock{
-    constructor(DOMparent, time1, time2){
+    constructor(DOMparent, time1, time2, gameOverFunction){
         console.log(DOMparent)
 
         // time left in milliseconds
@@ -29,11 +28,18 @@ class Clock{
         this.DOMclockPlayer1 = DOMparent.children[1].children[0].children[0]
         this.DOMclockPlayer2 = DOMparent.children[1].children[1].children[0]
         
+        this.gameOverFunction = gameOverFunction
 
         this.displayTimer(1, this.initalTimeLeftPlayer1)
         this.displayTimer(2, this.initalTimeLeftPlayer2)
+
+
     }
 
+    /**
+     * Starts the timer for one player, if the timer was already running for the other player that is stoped
+     * @param {number} player what player, 1 = this player, 2 = the other player
+     */
     startTimer(player){
         //There is already a timer running for the other player, stop that now
         if((this.coutingState != 0) && (this.coutingState != player)){
@@ -46,15 +52,32 @@ class Clock{
         this.coutingState = player
     }
 
+    /**
+     * This event is called 100 times each seccond
+     */
     timerEvent(){
 
         let timeLeft = this.endTime - new Date().getTime()
-        this.displayTimer(this.coutingState,  timeLeft)
+
+        // the timer has reached 0
         if(timeLeft < 0){
+            // this player has lost
+            if(this.coutingState == 1)
+                this.gameOverFunction(false)
+
+            this.displayTimer(this.coutingState,  0)
             this.stopTimer()
+            return
+        }else{
+            this.displayTimer(this.coutingState,  timeLeft)
         }
     }
 
+    /**
+     * Sets the time for a player
+     * @param {number} player what player, 1 = this player, 2 = the other player
+     * @param {number} timeLeft how much time is left in ms
+     */
     setTimer(player, timeLeft){
         let now = new Date().getTime()
 
@@ -75,14 +98,23 @@ class Clock{
         this.displayTimer(player, timeLeft)
     }
 
+    /**
+     * Returns the time left for a specific player
+     * @param {number} player  what player, 1 = this player, 2 = the other player
+     */
     getTimer(player){
         if(this.coutingState == player){
             return this.endTime - new Date().getTime()
         }else{
-            return (player == '1') ? this.initalTimeLeftPlayer1 : this.initalTimeLeftPlayer2;
+            return (player == 1) ? this.initalTimeLeftPlayer1 : this.initalTimeLeftPlayer2;
         }
     }
 
+    /**
+     * Function to display the time on the clock
+     * @param {number} player what player, 1 = this player, 2 = the other player
+     * @param {number} time how much time to display
+     */
     displayTimer(player, time){
         if(player == 1){
             this.DOMclockPlayer1.innerText = this.formatTime(time)
@@ -91,6 +123,9 @@ class Clock{
         }
     }
 
+    /**
+     * Stop any timer that is running
+     */
     stopTimer(){
         let now = new Date().getTime()
 
@@ -106,6 +141,10 @@ class Clock{
         clearInterval(this.timer)
     }
 
+    /**
+     * Helper funcion that returns a nice string from a time in ms
+     * @param {number} milliseconds 
+     */
     formatTime(milliseconds){
         let min = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60))
         let sec = Math.floor((milliseconds % (1000 * 60)) / (1000))
