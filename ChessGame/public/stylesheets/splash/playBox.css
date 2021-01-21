@@ -1,8 +1,9 @@
+/* Stylesheet for box with play! and rules? button */
+
 .playbox{
     display: grid;
     grid-template-rows: 1fr 1fr;
     position: relative;
-
 }
 
 .title{
@@ -30,7 +31,6 @@
     margin: 5%;
     border-radius: 12px;
     transition-duration: 0.4s;
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 
     animation: float 6s ease-in-out infinite;
 }
@@ -43,11 +43,8 @@
 
 .button:active{
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
-    
+    transform: translateY(4px);  
 }
-
-
   
 @keyframes float {
 	0% {
@@ -61,5 +58,5 @@
 	100% {
 		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 		transform: translatey(0px);
-	}
+    }
 }

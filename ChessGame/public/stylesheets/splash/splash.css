@@ -1,3 +1,5 @@
+/* Stylesheet for splashscreen */
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -5,7 +7,6 @@ body {
   overflow-y: hidden;
 }
 
-/* Header*/
 
 header {
   height: 48px;
@@ -18,8 +19,6 @@ h1{
   padding: 5px;
 }
 
-/*main content*/
-
 main {
   position: relative;
   height: calc(100vh - 48px);
@@ -28,18 +27,12 @@ main {
   grid-template-columns: 2fr 1fr;
 }
 
-
 .board-in-splash{
   position: absolute;
   margin-left: 12%;
   margin-top: 5%;
   filter: grayscale(100%);
-
-  /* animation-name: fadeIn;
-  animation-duration: 1s; */
-  
 }
-
 
 .playbox-container{
   position: absolute;
@@ -52,9 +45,6 @@ main {
   background: var(--color-secondary-1);
   opacity: 0.95;
   box-shadow: 0 1px 4px 0 var(--color-secondary-5);
-
-  /* animation-name: fadeIn;
-  animation-duration: 3s; */
 }
 
 .statistics-container {
@@ -105,47 +95,17 @@ main {
   color: black;
 }
 
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: scale3d(.75,.75,1);
-    }
-  
-    100% {
-      opacity: 0.95;
-      transform: scale3d(1,1,1);
-
-    }
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    left: -3rem;
+    transform: scale3d(.75,.75,1);
   }
 
-  @keyframes fadeInLeft {
-    0% {
-      opacity: 0;
-      left: -3rem;
-      transform: scale3d(.75,.75,1);
-    }
-  
-    100% {
-      opacity: 0.95;
-      left: 0%;
-      transform: scale3d(1,1,1);
+  100% {
+    opacity: 0.95;
+    left: 0%;
+    transform: scale3d(1,1,1);
 
-    }
   }
-  
-  @keyframes rightFadeIn {
-    0% {
-      position: absolute;
-      right: -3rem;
-      opacity: 0;
-    }
-  
-  
-    100% {
-      opacity: 1;
-      right: 5%;
-    }
-  }
-
-  
+}

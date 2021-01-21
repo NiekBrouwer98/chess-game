@@ -1,4 +1,6 @@
-/* game with two players, based on their WebSocket */
+/* 
+* game with two players, based on their WebSocket
+*/
 var game = function(gameID) {
     this.playerWHITE = null;
     this.playerBLACK = null;
@@ -26,7 +28,7 @@ game.prototype.transitionStates["ABORTED"] = 6;
 game.prototype.transitionMatrix = [
     [0, 1, 0, 0, 0, 0, 0], //0 JOINT
     [1, 0, 1, 0, 0, 0, 0], //1 JOINT
-    [0, 0, 0, 1, 0, 0, 1], //2 JOINT (note: once we have two players, there is no way back!)
+    [0, 0, 0, 1, 0, 0, 1], //2 JOINT
     [0, 0, 0, 1, 1, 1, 1], //GAME ENDED
     [0, 0, 0, 0, 0, 0, 0], //WHITE WON
     [0, 0, 0, 0, 0, 0, 0], //BLACK WON
@@ -124,7 +126,6 @@ game.prototype.addPlayer = function(p) {
     /*
      * revise the game state
      */
-  
     var error = this.setStatus("1 JOINT");
     if (error instanceof Error) {
       this.setStatus("2 JOINT");

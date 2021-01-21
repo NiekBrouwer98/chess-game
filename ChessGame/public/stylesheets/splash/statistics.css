@@ -1,4 +1,4 @@
-/*Statistics*/
+/*Stylesheet for box with live statistics*/
   .statistics-content{
     position: absolute;
     font-size: 18px;
@@ -8,9 +8,7 @@
     top: 0px;
     height: 380px;
     text-align: center;
-    display: grid;
-
-  
+    display: grid;  
   }
 
   .statistic-text{
@@ -22,13 +20,13 @@
     margin-bottom: 20px;
     margin-left: 5%;
     margin-right: 5%;
-
   }
 
   .statisticA-title::before{
     content: "♟ ";
     color: white;
   }
+  
   .statisticB-title::before{
     content: "♞ ";
     color: white;

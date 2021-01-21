@@ -13,12 +13,12 @@ const game = require("./playGame");
 var port = process.argv[2];
 var app = express();
 
-// app.set("view engine", "ejs")
+app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 
-// // implement live statistics
+// Implement live statistics
 app.get("/", (req, res) => {
   console.log("Welcoming player to splash screen")
   res.render("splash.ejs", {
@@ -28,18 +28,20 @@ app.get("/", (req, res) => {
   });
 });
 
+// Route without live statistics
 // app.get("/", (req, res) => {
 //   res.sendFile("splashScreen.html", { root: "./public" });
 // });
 
+//Initiate server
 var server = http.createServer(app);
 const wss = new websocket.Server({ server });
 
 var websockets = {};
 
 /*
- * regularly clean up the websockets object
- */
+* Clean up websockets after some time
+*/
 setInterval(function () {
   for (let i in websockets) {
     if (Object.prototype.hasOwnProperty.call(websockets, i)) {
@@ -55,17 +57,16 @@ setInterval(function () {
 var currentGame = new Game(gameStatus.gamesInitialized++);
 var connectionID = 0;
 
+/*
+* Correspondence with websockets
+* It can receive different messages or close signs
+*/
 wss.on("connection", function connection(ws) {
-  /*
-   * every two players are added to the same game 
-   */
   let con = ws;
   con.id = connectionID++;
   let playerType = currentGame.addPlayer(con);
   websockets[con.id] = currentGame;
   gameStatus.playersOnline++;
-  // gameStatus.playersOnline++;
-
 
   console.log(
     "Player %s placed in game %s as %s",
@@ -81,9 +82,7 @@ wss.on("connection", function connection(ws) {
   */
   if (currentGame.hasTwoConnectedPlayers()) {
 
-    /*
-    * inform the clients about its player color
-    */
+    //Inform players about their color
     currentGame.playerWHITE.send(messages.S_PLAYER_WHITE)
     currentGame.playerBLACK.send(messages.S_PLAYER_BLACK)
 
@@ -93,7 +92,7 @@ wss.on("connection", function connection(ws) {
   }
 
   /* game interactions
-  * receiving from client
+  * receiving message from client
   * determining game and opposing player
   * send to other client
  */
@@ -108,7 +107,7 @@ wss.on("connection", function connection(ws) {
 
     if (oMsg.type == messages.T_MAKE_A_MOVE) {
       //Change boardstatus of own player
-
+      
       if (isWhite) {
 
         if (gameObj.hasTwoConnectedPlayers()) {

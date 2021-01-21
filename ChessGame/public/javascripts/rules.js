@@ -1,3 +1,5 @@
+/*javascript to open and close rules box */
+
 function openFunction() {
     var x = document.getElementById("rules-container");
     if (x.style.display === "none") {

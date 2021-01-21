@@ -1,4 +1,7 @@
-/* game statistics */
+/* 
+* Keep track of the game statistics.
+* These statistics will be displayed on the splash screen.
+ */
 
 var gameStatus = {
     since: Date.now(),
