@@ -4,7 +4,7 @@
 
 //This contains all code used to manage the chess timer
 class Clock{
-    constructor(DOMparent, time1, time2, gameOverFunction){
+    constructor(DOMparent, time1, time2, gameManager){
         console.log(DOMparent)
 
         // time left in milliseconds
@@ -28,7 +28,7 @@ class Clock{
         this.DOMclockPlayer1 = DOMparent.children[1].children[0].children[0]
         this.DOMclockPlayer2 = DOMparent.children[1].children[1].children[0]
         
-        this.gameOverFunction = gameOverFunction
+        this.gameManager = gameManager
 
         this.displayTimer(1, this.initalTimeLeftPlayer1)
         this.displayTimer(2, this.initalTimeLeftPlayer2)
@@ -61,12 +61,13 @@ class Clock{
 
         // the timer has reached 0
         if(timeLeft < 0){
+            this.displayTimer(this.coutingState,  0)
+            clearInterval(this.timer)
+
             // this player has lost
             if(this.coutingState == 1)
-                this.gameOverFunction(false)
+                this.gameManager.gameOver(false)
 
-            this.displayTimer(this.coutingState,  0)
-            this.stopTimer()
             return
         }else{
             this.displayTimer(this.coutingState,  timeLeft)

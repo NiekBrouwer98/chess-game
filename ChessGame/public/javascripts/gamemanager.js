@@ -1,6 +1,7 @@
 // @ts-check"
 "use strict";
 let debug = false
+let gameManager = null
 
 class GameManager {
 
@@ -11,7 +12,7 @@ class GameManager {
         this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
-        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 1, 1, this.gameOver)
+        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 0.5, 0.5, this)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
@@ -20,6 +21,8 @@ class GameManager {
         this.overlay.classList.toggle("hidden", true)
 
         document.getElementById("main").classList.toggle("is_white", is_white)
+
+        gameManager = this
     }
 
     pressedSquare(square) {
