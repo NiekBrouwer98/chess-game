@@ -52,7 +52,8 @@
   
     //server sends a close event only if the game was aborted from some side
     socket.onclose = function () {
-      gm.gameAborted();
+      if(!gm.gameOverFlag)
+        gm.gameAborted();
     };
   
     socket.onerror = function () { };
