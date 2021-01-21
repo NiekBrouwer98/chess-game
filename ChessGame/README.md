@@ -1,5 +1,7 @@
 # Chess game web application for CSE1500
 
+![splashscreen screenshot](splashscreen.png)
+
 ![Game screenshot](gamescreen.png)
 
 ```console
