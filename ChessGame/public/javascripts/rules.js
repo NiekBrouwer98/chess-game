@@ -8,8 +8,8 @@ function openFunction() {
 } 
 
 function closeFunction() {
-var x = document.getElementById("rules-container");
-if (x.style.display === "block") {
-    x.style.display = "none";
-}
+    var x = document.getElementById("rules-container");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    }
 }

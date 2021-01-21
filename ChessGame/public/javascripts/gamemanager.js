@@ -12,7 +12,7 @@ class GameManager {
         this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
-        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 0.5, 0.5, this)
+        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 15, 15, this)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
