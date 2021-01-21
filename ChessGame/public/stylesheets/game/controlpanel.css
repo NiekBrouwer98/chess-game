@@ -1,10 +1,10 @@
 /*Controlpanel*/
 
 .controlpanel-container {
-    margin: 156px 28px 60px;
+    margin: 130px 28px 34px;
     /* box-shadow: 0 0 0 1px; */
     display: grid;
-    grid-template-rows: 62px 1fr 52px;
+    grid-template-rows: 62px 1fr 52px 52px;
     overflow: hidden;
     max-width: 350px;
     background: var(--color-secondary-1);
@@ -55,4 +55,15 @@
   background: white;
   color: var(--color-secondary-4);
   /* box-shadow: 0 0 0 1px; */
+}
+
+.statusbar{
+  /* position: relative; */
+  /* min-height: 52px; */
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  background: var(--color-secondary-4);
+
 }

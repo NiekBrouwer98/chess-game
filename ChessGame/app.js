@@ -7,13 +7,15 @@ var messages = require("./public/javascripts/messages");
 
 var gameStatus = require("./statTracker");
 var Game = require("./playGame");
-const { gamesOnline } = require("./statTracker");
-const game = require("./playGame");
+const { gamesAborted } = require("./statTracker");
+
+// const { gamesOnline } = require("./statTracker");
+// const game = require("./playGame");
 
 var port = process.argv[2];
 var app = express();
 
-// app.set("view engine", "ejs")
+app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
@@ -84,6 +86,7 @@ wss.on("connection", function connection(ws) {
     if (currentGame.hasTwoConnectedPlayers()) {
         currentGame = new Game(gameStatus.gamesInitialized++);
         gameStatus.gamesOnline++;
+
     }
 
      /* game interactions
@@ -125,17 +128,17 @@ wss.on("connection", function connection(ws) {
      */
     con.on("close", function(code){
       console.log(con.id + " disconnected...");
+      gameStatus.playersOnline--;
 
       if (code == "1001") {
         let gameObj = websockets[con.id];
-        gameStatus.playersOnline--;
-        gameStatus.playersOnline--;
-        gameStatus.gamesOnline--;
 
         if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")){
           gameObj.setStatus("ABORTED");
           gameStatus.gamesAborted++;
+          gameStatus.gamesOnline--;
 
+          
           try {
             gameObj.playerWHITE.close();
             gameObj.playerWHITE = null;
@@ -152,7 +155,7 @@ wss.on("connection", function connection(ws) {
         }
       }
     });
-});
+} );
 
 
 server.listen(port);

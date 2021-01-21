@@ -12,8 +12,13 @@ class GameManager {
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
+        this.statusBar = new statusBar(document.getElementsByClassName("statusbar")[0])
         document.getElementById("main").classList.toggle("is_white", is_white)
     }
+
+    // setStatusMessage(message){
+    //     this.statusBar.setStatus(message)
+    // }
 
     pressedSquare(square) {
         this.legalMovesCurrentPiece = this.chess.moves({ square: square.id })
@@ -122,11 +127,15 @@ class GameManager {
         console.log(this.chess.ascii())
         this.board.update_pieces(this.chess.board())
 
-        this.sidepanel.addMove(move_string)
-
+        this.sidepanel.addMove(move_string)    
+ 
         // if(capture)
         //     this.audio.Capture()
         // else
         this.audio.Move()
     }
+
+
+
+    
 }

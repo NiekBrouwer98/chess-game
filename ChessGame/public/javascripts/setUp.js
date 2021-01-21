@@ -10,7 +10,7 @@
 
     socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
-    
+
         console.log(incomingMsg)
 
         //set player type
@@ -19,8 +19,16 @@
 
           // Now that we know the player type we can setup the board
           gm = new GameManager(incomingMsg.data == "WHITE", socket);
-
+          if(incomingMsg.data=="WHITE"){
+            gm.statusBar.setStatus(Status["whiteIntro"]);
+          }
+          if(incomingMsg.data=="BLACK"){
+            gm.statusBar.setStatus(Status["blackIntro"]);
+          }
+          setStatus();
         }
+
+        while(gm)
 
         // Check if we already have a game manager to receive other messages
         if(gm == null){
@@ -38,6 +46,7 @@
               incomingMsg.square_to,
               incomingMsg.move_string,
               incomingMsg.time)
+
         }
     }
     
