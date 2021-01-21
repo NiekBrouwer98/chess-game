@@ -2,7 +2,7 @@
 
 ```console
 git clone git@gitlab.com:niekbrouwer/chess-game.git
-cd balloons-game
+cd ChessGame
 npm install
 npm start
 ```
