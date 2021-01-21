@@ -23,6 +23,7 @@ class GameManager {
         document.getElementById("main").classList.toggle("is_white", is_white)
 
         gameManager = this
+        this.gameOver = false
     }
 
     pressedSquare(square) {
