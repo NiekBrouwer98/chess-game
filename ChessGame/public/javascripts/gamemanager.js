@@ -167,6 +167,10 @@ class GameManager {
     }
 
     gameAborted(){
+        let outgoingMsg = Messages.O_GAME_ABORTED
+        if(this.socket)
+            this.socket.send(outgoingMsg)
+
         this.overlay.classList.toggle("hidden", false)
         this.overlay.children[0].innerText = "The game has been aborted"
     }

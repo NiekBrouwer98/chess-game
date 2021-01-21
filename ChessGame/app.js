@@ -64,6 +64,8 @@ wss.on("connection", function connection(ws) {
     let playerType = currentGame.addPlayer(con);
     websockets[con.id] = currentGame;
     gameStatus.playersOnline++;
+    // gameStatus.playersOnline++;
+
 
     console.log(
         "Player %s placed in game %s as %s",
@@ -87,6 +89,7 @@ wss.on("connection", function connection(ws) {
 
         currentGame = new Game(gameStatus.gamesInitialized++);
         gameStatus.gamesOnline++;
+        
     }
 
      /* game interactions
@@ -119,8 +122,14 @@ wss.on("connection", function connection(ws) {
           gameObj.setStatus(oMsg.data);
           //game was won by somebody, update statistics
           gameStatus.gamesCompleted++;
+          gameStatus.gamesOnline--;
         }
       }
+
+      if (oMsg.type == messages.O_GAME_ABORTED){
+        gameStatus.gamesOnline--;
+      }
+
     });
 
      /*
@@ -128,12 +137,10 @@ wss.on("connection", function connection(ws) {
      */
     con.on("close", function(code){
       console.log(con.id + " disconnected...");
+      gameStatus.playersOnline--;
 
       if (code == "1001") {
         let gameObj = websockets[con.id];
-        gameStatus.playersOnline--;
-        gameStatus.playersOnline--;
-        gameStatus.gamesOnline--;
 
         if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")){
           gameObj.setStatus("ABORTED");

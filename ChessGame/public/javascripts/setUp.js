@@ -50,6 +50,7 @@
       // if (gs.whoWon() == null) {
       //   sb.setStatus(Status["aborted"]);
       // }
+      gm.gameAborted();
     };
   
     socket.onerror = function () { };
