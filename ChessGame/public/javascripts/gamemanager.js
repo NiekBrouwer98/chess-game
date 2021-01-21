@@ -112,6 +112,13 @@ class GameManager {
         this.socket.send(JSON.stringify(outgoingMsg))
 
         this.currentPiece = null
+
+        // Checkmate
+        if(move_string.includes("#")){
+            console.log(`Checkmate: ${move_string}`)
+            this.sendGameOver(this.is_white)
+            this.gameOver(this.is_white)
+        }
     }
 
     receiveMove(from, to, move_string, time){
@@ -153,17 +160,20 @@ class GameManager {
             this.audio.Move()
     }
 
-    gameOver(won){
-        console.log(`This game is over, and is ${won?"":"not"} won by this player`)
-
+    sendGameOver(white_won){
         let outgoingMsg = Messages.O_GAME_WON_BY
-        outgoingMsg.data = this.is_white == won ? "WHITE" : "BLACK"
+        outgoingMsg.data = white_won ? "WHITE" : "BLACK"
         if(this.socket)
             this.socket.send(JSON.stringify(outgoingMsg))
+    }
+
+    gameOver(white_won){
+        console.log(`This game is over, and ${white_won? "white":"black"} won`)
+        this.clock.stopTimer()
 
         this.overlay.classList.toggle("hidden", false)
-        this.overlay.children[0].innerText = `${this.is_white == won ? "White" : "Black"} has won the game`
-        this.overlay.classList.toggle("black_won", this.is_white != won)
+        this.overlay.children[0].innerText = `${white_won ? "White" : "Black"} has won the game`
+        this.overlay.classList.toggle("black_won", !white_won)
     }
 
     gameAborted(){

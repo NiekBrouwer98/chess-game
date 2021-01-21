@@ -40,9 +40,9 @@ var websockets = {};
 /*
  * regularly clean up the websockets object
  */
-setInterval(function() {
+setInterval(function () {
   for (let i in websockets) {
-    if (Object.prototype.hasOwnProperty.call(websockets,i)) {
+    if (Object.prototype.hasOwnProperty.call(websockets, i)) {
       let gameObj = websockets[i];
       //if the gameObj has a final status, the game is complete/aborted
       if (gameObj.finalStatus != null) {
@@ -56,112 +56,117 @@ var currentGame = new Game(gameStatus.gamesInitialized++);
 var connectionID = 0;
 
 wss.on("connection", function connection(ws) {
+  /*
+   * every two players are added to the same game 
+   */
+  let con = ws;
+  con.id = connectionID++;
+  let playerType = currentGame.addPlayer(con);
+  websockets[con.id] = currentGame;
+  gameStatus.playersOnline++;
+  // gameStatus.playersOnline++;
+
+
+  console.log(
+    "Player %s placed in game %s as %s",
+    con.id,
+    currentGame.id,
+    playerType
+  );
+
+
+  /*
+  * a new game object is created
+  * if a player now leaves, the game is aborted
+  */
+  if (currentGame.hasTwoConnectedPlayers()) {
+
     /*
-     * every two players are added to the same game 
-     */ 
-    let con = ws;
-    con.id = connectionID++;
-    let playerType = currentGame.addPlayer(con);
-    websockets[con.id] = currentGame;
-    gameStatus.playersOnline++;
-    // gameStatus.playersOnline++;
+    * inform the clients about its player color
+    */
+    currentGame.playerWHITE.send(messages.S_PLAYER_WHITE)
+    currentGame.playerBLACK.send(messages.S_PLAYER_BLACK)
 
+    currentGame = new Game(gameStatus.gamesInitialized++);
+    gameStatus.gamesOnline++;
 
-    console.log(
-        "Player %s placed in game %s as %s",
-        con.id,
-        currentGame.id,
-        playerType
-    );
+  }
 
+  /* game interactions
+  * receiving from client
+  * determining game and opposing player
+  * send to other client
+ */
+  con.on("message", function incoming(message) {
+    let oMsg = JSON.parse(message);
 
-     /*
-     * a new game object is created
-     * if a player now leaves, the game is aborted
-     */
-    if (currentGame.hasTwoConnectedPlayers()) {
-       
-        /*
-        * inform the clients about its player color
-        */
-        currentGame.playerWHITE.send(messages.S_PLAYER_WHITE)
-        currentGame.playerBLACK.send(messages.S_PLAYER_BLACK)
+    let gameObj = websockets[con.id];
 
-        currentGame = new Game(gameStatus.gamesInitialized++);
-        gameStatus.gamesOnline++;
-        
+    console.log(oMsg)
+
+    let isWhite = (gameObj.playerWHITE == con) ? true : false;
+
+    if (oMsg.type == messages.T_MAKE_A_MOVE) {
+      //Change boardstatus of own player
+
+      if (isWhite) {
+
+        if (gameObj.hasTwoConnectedPlayers()) {
+          gameObj.playerBLACK.send(message);
+        }
+      } else {
+        gameObj.playerWHITE.send(message);
+      }
     }
 
-     /* game interactions
-     * receiving from client
-     * determining game and opposing player
-     * send to other client
-    */
-   con.on("message", function incoming(message) {
-      let oMsg = JSON.parse(message);
+    if (oMsg.type == messages.T_GAME_WON_BY) {
+      if(isWhite)
+        gameObj.playerBLACK.send(message);
+      else
+        gameObj.playerWHITE.send(message);
 
+      gameObj.setStatus(oMsg.data);
+      //game was won by somebody, update statistics
+      gameStatus.gamesCompleted++;
+      gameStatus.gamesOnline--;
+    }
+
+    if (oMsg.type == messages.O_GAME_ABORTED) {
+      gameStatus.gamesOnline--;
+    }
+
+  });
+
+  /*
+  * abort the game
+  */
+  con.on("close", function (code) {
+    console.log(con.id + " disconnected...");
+    gameStatus.playersOnline--;
+
+    if (code == "1001") {
       let gameObj = websockets[con.id];
 
-      console.log(oMsg)
+      if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")) {
+        gameObj.setStatus("ABORTED");
+        gameStatus.gamesAborted++;
 
-      let isWhite = (gameObj.playerWHITE == con) ? true : false;
-        
-        if (oMsg.type == messages.T_MAKE_A_MOVE) {
-          //Change boardstatus of own player
-
-          if (isWhite){
-
-          if (gameObj.hasTwoConnectedPlayers()) {
-            gameObj.playerBLACK.send(message);
-          }
-        }else{
-          gameObj.playerWHITE.send(message);
+        try {
+          gameObj.playerWHITE.close();
+          gameObj.playerWHITE = null;
+        } catch (e) {
+          console.log("White player closing: " + e);
         }
 
-        if (oMsg.type == messages.T_GAME_WON_BY) {
-          gameObj.setStatus(oMsg.data);
-          //game was won by somebody, update statistics
-          gameStatus.gamesCompleted++;
-          gameStatus.gamesOnline--;
+        try {
+          gameObj.playerBLACK.close();
+          gameObj.playerBLACK = null;
+        } catch (e) {
+          console.log("Black player closing: " + e);
         }
       }
-
-      if (oMsg.type == messages.O_GAME_ABORTED){
-        gameStatus.gamesOnline--;
-      }
-
-    });
-
-     /*
-     * abort the game
-     */
-    con.on("close", function(code){
-      console.log(con.id + " disconnected...");
-      gameStatus.playersOnline--;
-
-      if (code == "1001") {
-        let gameObj = websockets[con.id];
-
-        if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")){
-          gameObj.setStatus("ABORTED");
-          gameStatus.gamesAborted++;
-
-          try {
-            gameObj.playerWHITE.close();
-            gameObj.playerWHITE = null;
-          } catch (e) {
-            console.log("White player closing: " + e);
-          }
-  
-          try {
-            gameObj.playerBLACK.close();
-            gameObj.playerBLACK = null;
-          } catch (e) {
-            console.log("Black player closing: " + e);
-          }
-        }
-      }
-    });
+    }
+  });
 });
 
 

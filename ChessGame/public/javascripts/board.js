@@ -59,7 +59,7 @@ class Board {
                 children[i].appendChild(newtext)
             }
         }
-        console.log(this.squares)
+        // console.log(this.squares)
     }
 
     /**
@@ -143,7 +143,7 @@ class Board {
      * @param {string} id - The id of the square eg 'a1' or 'd4' or and move like 'Nh3'
      */
     id2squareData(id, is_white){
-        console.log(id)
+        // console.log(id)
 
         //Remove the + sign if the king is in check
         if(id[id.length - 1] == "+")

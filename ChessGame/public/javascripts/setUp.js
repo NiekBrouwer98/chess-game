@@ -39,6 +39,11 @@
               incomingMsg.move_string,
               incomingMsg.time)
         }
+
+        // We recieved that te game is over
+        if(incomingMsg.type == Messages.T_GAME_WON_BY){
+          gm.gameOver(incomingMsg.data == "WHITE")
+        }
     }
     
     socket.onopen = function () {

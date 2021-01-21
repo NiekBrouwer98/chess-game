@@ -65,9 +65,12 @@ class Clock{
             clearInterval(this.timer)
 
             // this player has lost
-            if(this.coutingState == 1)
-                this.gameManager.gameOver(false)
+            if(this.coutingState == 1){
+                console.log("Time is up")
 
+                this.gameManager.sendGameOver(!this.gameManager.is_white)
+                this.gameManager.gameOver(!this.gameManager.is_white)
+            }
             return
         }else{
             this.displayTimer(this.coutingState,  timeLeft)
