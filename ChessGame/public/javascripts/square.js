@@ -1,6 +1,9 @@
 // @ts-check
 "use strict";
 
+/**
+ * THis code manages a square
+ */
 class Square{
     constructor(object, x, y, id, gameManager){
         this.DOMelement = object
@@ -9,7 +12,7 @@ class Square{
         this.id = id
         this.piece = null
         this.gameManager = gameManager
-        //
+        
         this.DOMelement.addEventListener("mousedown", () => {gameManager.pressedSquare(this)})
         this.DOMelement.addEventListener("mouseup", () => {gameManager.releasedSquare(this)})
     }
@@ -19,8 +22,6 @@ class Square{
             console.error(`this square (${this.id}) doesn't have a piece`)
             return
         }
-
-        // console.log(`removing ${this.piece.type} from ${this.id}`)
 
         this.piece.destroyPiece()
         this.piece = null

@@ -1,3 +1,7 @@
+
+/**
+ * Manages the side panel with moves
+ */
 class Sidepanel{
 
     constructor(DOMelement){

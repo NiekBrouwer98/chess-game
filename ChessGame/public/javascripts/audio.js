@@ -1,3 +1,7 @@
+
+/**
+ * Takes care of playing sounds
+ */
 class AudioManager {
     constructor(){
         const move = new Audio("/data/move.wav");

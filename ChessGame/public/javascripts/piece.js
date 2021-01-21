@@ -41,6 +41,10 @@
         return pieceElement
      }
 
+     /**
+      * Initaly we used this to move a piece from square to square
+      * @param {square} toSquare 
+      */
      moveTo(toSquare){
          if(toSquare.piece != null){
             toSquare.removePiece()
@@ -52,15 +56,24 @@
          toSquare.DOMelement.appendChild(this.DOMelement)
      }
 
+     /**
+      * Removes its dom element
+      */
      destroyPiece(){
          this.DOMelement.remove()
      }
 
 
+     /**
+      * start the animation of the piece moving with the mouse
+      */
      initiateAnimation(){
         document.onmousemove = this.move.bind(this)
      }
 
+     /**
+      * Stops the animation of the piece moving with the mouse
+      */
      stopAnimation(){
         //remove all mouse move listeners
         document.onmousemove = null
@@ -68,6 +81,10 @@
         this.initalMouseEvent = null
      }
 
+     /**
+      * Gets called whenever the mouse moves when the animation is active
+      * @param {onmousemove event} event 
+      */
      move(event){
         // console.log(this)
         // console.log(event)
@@ -77,5 +94,3 @@
         this.DOMelement.style.transform = `translate(${event.x - this.initalMouseEvent.x}px, ${event.y - this.initalMouseEvent.y}px)`
      }
  }
-
- console.log("piece.js has loaded")

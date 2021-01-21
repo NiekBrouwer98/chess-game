@@ -3,8 +3,15 @@
 let debug = false
 let gameManager = null
 
+/**
+ * The game manager sets up all other game related objects and manages making the moves
+ */
 class GameManager {
 
+    /** 
+     * Constructor of this object
+     * {} is_white
+     */
     constructor(is_white, socket) {
         this.chess = new Chess()  // Chess.js library providing valid moves and piece positions
         this.is_white = is_white
@@ -26,14 +33,22 @@ class GameManager {
         this.gameOverFlag = false
     }
 
+    /**
+     * When a square is pressed it calls this function in order to start dragging pieces
+     * @param {square} square square that is being pressed
+     */
     pressedSquare(square) {
         //return if the square does not contian a piece of the same color as this player
         if(((square.piece == null || (square.piece.color == 'b') == this.is_white)) && !debug)
             return
 
+        // Use the chess.js library to find legal moves
         this.legalMovesCurrentPiece = this.chess.moves({ square: square.id })
+
         // console.log(square.id)
         // console.log(this.legalMovesCurrentPiece)
+
+        //Display all legal moves on the squares
         this.legalMovesCurrentPiece.forEach(move => {
             let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
             if (x == null || y == null || x < 0 || x > 7 || y < 0 || y > 7) {
@@ -43,7 +58,10 @@ class GameManager {
             }
         });
 
+        // Remember what piece is being dragged
         this.currentPiece = square.piece
+
+        // Let the piece folow the mouse
         if(this.currentPiece)
             this.currentPiece.initiateAnimation()
     }
@@ -56,8 +74,10 @@ class GameManager {
         if(!this.currentPiece)
             return
         
+        // Bring the piece back to the original square and stop following the mouse
         this.currentPiece.stopAnimation()
 
+        //remove the highlights
         this.legalMovesCurrentPiece.forEach(move => {
             let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
             if (x == null || y == null) {
@@ -70,13 +90,21 @@ class GameManager {
         this.currentPiece = null
     }
 
+    /**
+     * This is called by a square when the mouse rleases on it
+     * @param {square} square 
+     */
     releasedSquare(square) {
 
+        // we dont have to do anything if we didn't have a piece
         if(!this.currentPiece)
             return
-        
+            
+        // Bring the piece back to the original square and stop following the mouse
         this.currentPiece.stopAnimation()
       
+        
+        //remove the highlights, find the move
         let moveMade = null
         this.legalMovesCurrentPiece.forEach(move => {
             let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
@@ -89,6 +117,7 @@ class GameManager {
             }
         });
 
+        // This was not a valid move
         if (moveMade == null){
             console.log("Invalid move :(")
             return
@@ -104,6 +133,7 @@ class GameManager {
         //start the timer for the opponent
         this.clock.startTimer(2)
 
+        // Send a message to the server
         let outgoingMsg = Messages.O_MAKE_A_MOVE
         outgoingMsg.square_from = square_from
         outgoingMsg.square_to = square_to
@@ -122,6 +152,7 @@ class GameManager {
         }
     }
 
+    // Handles the recieveing of a move
     receiveMove(from, to, move_string, time){
         this.movePiece(from, to, move_string)
 
@@ -129,6 +160,12 @@ class GameManager {
         this.clock.setTimer(2, time)
     }
 
+    /**
+     * Handles moving a piece on the board
+     * @param {string} from 
+     * @param {string} to 
+     * @param {string} move_string 
+     */
     movePiece(from, to, move_string) {
         let capture = false
 
@@ -161,6 +198,10 @@ class GameManager {
             this.audio.Move()
     }
 
+    /**
+     * Sends the game over message to the server
+     * @param {boolean} white_won 
+     */
     sendGameOver(white_won){
         let outgoingMsg = Messages.O_GAME_WON_BY
         outgoingMsg.data = white_won ? "WHITE" : "BLACK"
@@ -168,6 +209,10 @@ class GameManager {
             this.socket.send(JSON.stringify(outgoingMsg))
     }
 
+    /**
+     * Displays the game over screen with the winner
+     * @param {boolean} white_won 
+     */
     gameOver(white_won){
         console.log(`This game is over, and ${white_won? "white":"black"} won`)
         this.clock.stopTimer()
@@ -179,6 +224,9 @@ class GameManager {
         this.gameOverFlag = true
     }
 
+    /**
+     * Displays the game aborted screen
+     */
     gameAborted(){
         let outgoingMsg = Messages.O_GAME_ABORTED
         if(this.socket)
