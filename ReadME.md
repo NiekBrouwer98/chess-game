@@ -1,7 +1,7 @@
 # Chess game web application for CSE1500
 
 ```console
-git clone 
+git clone git@gitlab.com:niekbrouwer/chess-game.git
 cd balloons-game
 npm install
 npm start
