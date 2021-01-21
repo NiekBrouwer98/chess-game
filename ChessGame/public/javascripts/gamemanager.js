@@ -15,6 +15,10 @@ class GameManager {
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
+
+        this.overlay = document.getElementsByClassName("overlay")[0]
+        this.overlay.classList.toggle("hidden", true)
+
         document.getElementById("main").classList.toggle("is_white", is_white)
     }
 
@@ -40,9 +44,29 @@ class GameManager {
             this.currentPiece.initiateAnimation()
     }
 
+    /**
+     * Function that is triggered when the mouse leaves the board,
+     * preventing pieces to be placed outside the board
+     */
+    mouseLeftBoard() {
+        if(!this.currentPiece)
+            return
+        
+        this.currentPiece.stopAnimation()
+
+        this.legalMovesCurrentPiece.forEach(move => {
+            let { x, y } = this.board.id2squareData(move, this.chess.turn() == 'w')
+            if (x == null || y == null) {
+                console.error("Can't generate position for move " + move)
+            } else {
+                this.board.squares[y][x].toggleHighlight(false)
+            }
+        });
+
+        this.currentPiece = null
+    }
+
     releasedSquare(square) {
-        // console.log("releasing")
-        // console.log(square.id)
 
         if(!this.currentPiece)
             return
@@ -133,8 +157,16 @@ class GameManager {
 
         let outgoingMsg = Messages.O_GAME_WON_BY
         outgoingMsg.data = this.is_white == won ? "WHITE" : "BLACK"
-        this.socket.send(JSON.stringify(outgoingMsg))
+        if(this.socket)
+            this.socket.send(JSON.stringify(outgoingMsg))
 
-        //do other stuff
+        this.overlay.classList.toggle("hidden", false)
+        this.overlay.children[0].innerText = `${this.is_white == won ? "White" : "Black"} has won the game`
+        this.overlay.classList.toggle("black_won", this.is_white != won)
+    }
+
+    gameAborted(){
+        this.overlay.classList.toggle("hidden", false)
+        this.overlay.children[0].innerText = "The game has been aborted"
     }
 }

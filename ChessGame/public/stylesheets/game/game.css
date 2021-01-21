@@ -27,6 +27,44 @@ main {
   grid-template-columns: 3fr 2fr 64px;
 }
 
+/* Overlay */
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(255 255 255 / 0.7);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.hidden {
+   display: none;
+}
+
+.overlay p{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.overlay.black_won {
+  background: rgb(0 0 0 / 0.7);
+  color: #ffffff;
+}
+
+/* board highlight*/
+.chessboard-square:hover {
+  border: solid 1px white;
+}
+
+.overlay a{
+  color: var(--color-secondary-1);
+  text-align: center;
+  margin: 40px;
+  font-size: 20px;
+}
 
 
 /*sidepanel*/

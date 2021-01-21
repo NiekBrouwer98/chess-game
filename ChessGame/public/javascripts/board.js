@@ -17,6 +17,7 @@ class Board {
      */
     constructor(DOMelement, is_white, gameManager) {
         this.DOMelement = DOMelement
+        this.DOMelement.addEventListener("mouseleave", () => {gameManager.mouseLeftBoard()})
 
         this.is_white = is_white
         console.log(`board set up as ${is_white? 'white':'black'}`)
