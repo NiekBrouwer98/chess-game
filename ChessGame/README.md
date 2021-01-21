@@ -4,6 +4,11 @@
 
 ![Game screenshot](gamescreen.png)
 
+This chess game is developed for the course CSE1500.
+
+To play the game, make sure you have Node.js installed as well as git.
+To start the game, execute the following step:
+
 ```console
 git clone git@gitlab.com:niekbrouwer/chess-game.git
 cd ChessGame
