@@ -25,6 +25,7 @@ main {
   background: var(--color-secondary-3);
   display: grid;
   grid-template-columns: 3fr 2fr 64px;
+  overflow: hidden;
 }
 
 /* Overlay */

@@ -11,7 +11,7 @@ class GameManager {
         this.board = new Board(document.getElementById("board"), is_white, this)
         this.board.setupPieces(this.chess.board())
         this.audio = new AudioManager()
-        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 5, 5, this.gameOver)
+        this.clock = new Clock(document.getElementsByClassName("chessboard-header")[0], 1, 1, this.gameOver)
         this.currentPiece = null
         this.legalMovesCurrentPiece = []
         this.sidepanel = new Sidepanel(document.getElementsByClassName("controlpanel-content")[0])
@@ -130,8 +130,6 @@ class GameManager {
         let { x: toX, y: toY } = this.board.id2squareData(to, this.chess.turn() == 'w')
         console.log(`x ${toX}, y ${toY}`)
         let toSquare = this.board.squares[toY][toX]
-
-
         
         let move = this.chess.move({from: from, to: to} )
 

@@ -72,16 +72,19 @@ wss.on("connection", function connection(ws) {
         playerType
     );
 
-     /*
-     * inform the client about its player color
-     */
-    con.send(playerType == "WHITE" ? messages.S_PLAYER_WHITE : messages.S_PLAYER_BLACK)
 
      /*
      * a new game object is created
      * if a player now leaves, the game is aborted
      */
     if (currentGame.hasTwoConnectedPlayers()) {
+       
+        /*
+        * inform the clients about its player color
+        */
+        currentGame.playerWHITE.send(messages.S_PLAYER_WHITE)
+        currentGame.playerBLACK.send(messages.S_PLAYER_BLACK)
+
         currentGame = new Game(gameStatus.gamesInitialized++);
         gameStatus.gamesOnline++;
     }
