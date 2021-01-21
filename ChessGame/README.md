@@ -1,5 +1,6 @@
 # Chess game web application for CSE1500
-This chess game was developed
+
+![Game screenshot](gamescreen.png)
 
 ```console
 git clone git@gitlab.com:niekbrouwer/chess-game.git
