@@ -118,7 +118,6 @@ wss.on("connection", function connection(ws) {
         gameObj.playerWHITE.send(message);
       }
     }
-
     if (oMsg.type == messages.T_GAME_WON_BY) {
       if(isWhite)
         gameObj.playerBLACK.send(message);
@@ -128,13 +127,7 @@ wss.on("connection", function connection(ws) {
       gameObj.setStatus(oMsg.data);
       //game was won by somebody, update statistics
       gameStatus.gamesCompleted++;
-      gameStatus.gamesOnline--;
     }
-
-    if (oMsg.type == messages.O_GAME_ABORTED) {
-      gameStatus.gamesOnline--;
-    }
-
   });
 
   /*
