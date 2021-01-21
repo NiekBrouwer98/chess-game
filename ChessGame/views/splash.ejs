@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Chess</title>
+        <title>ChessMaster</title>
 
         <link rel="stylesheet" href="stylesheets/shared/colors.css" type='text/css'/>
         <link rel="stylesheet" href="stylesheets/splash/splash.css" type='text/css'/>
@@ -36,7 +36,7 @@
 
     <body>
         <header>
-            <h1>Chess</h1>
+            <h1>Chess Master: Play chess online!</h1>
         </header>
         <main id="main">
             <div>
@@ -184,22 +184,6 @@
         
         <script>
 
-            function openFunction() {
-                var x = document.getElementById("rules-container");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                }else{
-                    x.style.display = "none";
-                }
-            } 
-
-            function closeFunction() {
-            var x = document.getElementById("rules-container");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            }
-            }
-
         </script>
 
         <script src="javascripts/external_module/chess.js"></script>
@@ -208,6 +192,8 @@
         <script src="javascripts/board.js"></script>
         <script src="javascripts/gamemanager.js"></script>
         <script src="javascripts/game.js"></script>
+        <script src="javascripts/rules.js"></script>
+
 
     </body>
 </html>
