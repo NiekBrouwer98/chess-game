@@ -68,6 +68,7 @@ class Clock{
             if(this.coutingState == 1){
                 console.log("Time is up")
 
+                console.log(this.gameManager)
                 this.gameManager.sendGameOver(!this.gameManager.is_white)
                 this.gameManager.gameOver(!this.gameManager.is_white)
             }

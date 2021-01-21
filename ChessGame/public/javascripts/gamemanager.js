@@ -23,7 +23,7 @@ class GameManager {
         document.getElementById("main").classList.toggle("is_white", is_white)
 
         gameManager = this
-        this.gameOver = false
+        this.gameOverFlag = false
     }
 
     pressedSquare(square) {
@@ -175,6 +175,8 @@ class GameManager {
         this.overlay.classList.toggle("hidden", false)
         this.overlay.children[0].innerText = `${white_won ? "White" : "Black"} has won the game`
         this.overlay.classList.toggle("black_won", !white_won)
+
+        this.gameOverFlag = true
     }
 
     gameAborted(){
