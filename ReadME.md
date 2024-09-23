@@ -1,4 +1,4 @@
-# Chess game web application for CSE1500
+# Chess game web application
 
 ```console
 git clone git@gitlab.com:niekbrouwer/chess-game.git
